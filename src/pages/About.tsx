@@ -1,33 +1,39 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronUp } from "lucide-react";
+import athleteSpence from "@/assets/athlete-spence.png";
+import athleteAward from "@/assets/athlete-award.png";
+import athleteFocus from "@/assets/athlete-focus.png";
+import athleteCelebration from "@/assets/athlete-celebration.png";
+import athleteHandshake from "@/assets/athlete-handshake.png";
 
-const instagramImages = [
-  "https://instagram.fman4-2.fna.fbcdn.net/v/t51.2885-19/467193798_1257791868652413_8545706296131545497_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_ht=instagram.fman4-2.fna.fbcdn.net&_nc_cat=103&_nc_ohc=oPbTvGiS4DUQ7kNvwEaXpfq&_nc_gid=1b3a7c4f1b404cd89f59f17f46f2bab5&edm=AEhyXUkBAAAA&ccb=7-5&oh=00_AYH4eDJkLRvIcNkDYy3Q-6fDNnqVxQWN-FsKDhgLiDUvqA&oe=6840DBD4&_nc_sid=8f1549",
-  "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=500&fit=crop",
+const aboutImages = [
+  { src: athleteSpence, position: { left: "5%", top: "12%" }, rotation: -3 },
+  { src: athleteAward, position: { left: "72%", top: "8%" }, rotation: 2 },
+  { src: athleteFocus, position: { left: "8%", top: "55%" }, rotation: 2 },
+  { src: athleteCelebration, position: { left: "70%", top: "52%" }, rotation: -2 },
+  { src: athleteHandshake, position: { left: "38%", top: "75%" }, rotation: 1 },
 ];
 
 const About = () => {
   const navigate = useNavigate();
-  const [imagesVisible, setImagesVisible] = useState<boolean[]>([false, false, false, false]);
+  const [imagesVisible, setImagesVisible] = useState<boolean[]>(new Array(aboutImages.length).fill(false));
   const [textVisible, setTextVisible] = useState(false);
 
   useEffect(() => {
-    // Stagger image animations
-    const timers = instagramImages.map((_, index) => 
+    // Stagger image animations smoothly
+    const timers = aboutImages.map((_, index) => 
       setTimeout(() => {
         setImagesVisible(prev => {
           const newState = [...prev];
           newState[index] = true;
           return newState;
         });
-      }, 300 + index * 400)
+      }, 400 + index * 200)
     );
 
     // Text fade in
-    const textTimer = setTimeout(() => setTextVisible(true), 200);
+    const textTimer = setTimeout(() => setTextVisible(true), 300);
 
     return () => {
       timers.forEach(clearTimeout);
@@ -49,34 +55,33 @@ const About = () => {
         className="fixed top-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-1 text-muted-foreground/50 hover:text-muted-foreground transition-colors duration-300 group"
         aria-label="Back to home"
       >
-        <ChevronUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" strokeWidth={1} />
+        <ChevronUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" strokeWidth={1} />
         <span className="text-[10px] tracking-[0.2em] uppercase font-sans">Home</span>
       </button>
 
-      {/* Floating images */}
+      {/* Floating images with smooth fade animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {instagramImages.map((src, index) => (
+        {aboutImages.map((image, index) => (
           <div
             key={index}
-            className={`absolute transition-all duration-1000 ease-out ${
-              imagesVisible[index] 
-                ? "opacity-100 translate-y-0 scale-100" 
-                : "opacity-0 translate-y-12 scale-95"
-            }`}
+            className="absolute transition-all ease-out"
             style={{
-              left: `${10 + (index % 2) * 65 + Math.random() * 10}%`,
-              top: `${15 + Math.floor(index / 2) * 40 + Math.random() * 10}%`,
-              transform: `rotate(${-5 + index * 3}deg)`,
+              left: image.position.left,
+              top: image.position.top,
+              transform: `rotate(${image.rotation}deg)`,
               zIndex: index,
+              opacity: imagesVisible[index] ? 1 : 0,
+              transitionDuration: '1200ms',
+              transitionDelay: `${index * 100}ms`,
             }}
           >
             <div className="relative group pointer-events-auto">
               <img
-                src={src}
+                src={image.src}
                 alt={`Mrs Gray athlete ${index + 1}`}
-                className="w-32 md:w-48 lg:w-56 h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl"
+                className="w-28 md:w-40 lg:w-48 h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl"
                 style={{
-                  filter: "contrast(1.1)",
+                  filter: "contrast(1.05)",
                 }}
               />
               <div className="absolute inset-0 border border-foreground/10" />
@@ -88,9 +93,11 @@ const About = () => {
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
         <div 
-          className={`max-w-2xl mx-auto text-center transition-all duration-1000 ${
-            textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className="max-w-2xl mx-auto text-center transition-all duration-1000 ease-out"
+          style={{
+            opacity: textVisible ? 1 : 0,
+            transform: textVisible ? 'translateY(0)' : 'translateY(20px)',
+          }}
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light italic text-foreground mb-8 tracking-tight">
             Who We Are
