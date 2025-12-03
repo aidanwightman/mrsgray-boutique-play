@@ -1,21 +1,39 @@
 import { useEffect, useState } from "react";
+import { useTypewriterSound } from "@/hooks/useTypewriterSound";
 
-const AnimatedLogo = () => {
+interface AnimatedLogoProps {
+  onAnimationComplete?: () => void;
+}
+
+const AnimatedLogo = ({ onAnimationComplete }: AnimatedLogoProps) => {
   const [phase, setPhase] = useState(0);
+  const { playTypewriterClick, playPencilScratch } = useTypewriterSound();
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 200),  // Start "mrs"
-      setTimeout(() => setPhase(2), 1200), // Start "gray"
-      setTimeout(() => setPhase(3), 2400), // Show underline swash
+      setTimeout(() => {
+        setPhase(1);
+        playTypewriterClick();
+      }, 200),
+      setTimeout(() => {
+        setPhase(2);
+        playTypewriterClick();
+      }, 1200),
+      setTimeout(() => {
+        setPhase(3);
+        playPencilScratch();
+      }, 2400),
+      setTimeout(() => {
+        onAnimationComplete?.();
+      }, 3800),
     ];
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [playTypewriterClick, playPencilScratch, onAnimationComplete]);
 
   return (
     <div className="relative flex flex-col items-center">
       {/* Mrs */}
-      <div className="overflow-hidden">
+      <div className="overflow-visible pb-2">
         <h1 
           className={`font-serif text-6xl md:text-8xl lg:text-9xl font-light italic text-foreground tracking-tight transition-all duration-1000 ease-out ${
             phase >= 1 
@@ -30,8 +48,8 @@ const AnimatedLogo = () => {
         </h1>
       </div>
       
-      {/* Gray */}
-      <div className="overflow-hidden -mt-4 md:-mt-6 lg:-mt-8">
+      {/* Gray - with extra padding for descenders */}
+      <div className="overflow-visible pb-4 -mt-2 md:-mt-4 lg:-mt-6">
         <h1 
           className={`font-serif text-7xl md:text-9xl lg:text-[10rem] font-light italic text-foreground tracking-tight transition-all duration-1000 ease-out ${
             phase >= 2 
@@ -40,6 +58,7 @@ const AnimatedLogo = () => {
           }`}
           style={{ 
             letterSpacing: '-0.03em',
+            lineHeight: '0.85',
           }}
         >
           gray
@@ -49,7 +68,7 @@ const AnimatedLogo = () => {
       {/* Elegant underline swash */}
       <svg 
         viewBox="0 0 300 40" 
-        className={`w-48 md:w-64 lg:w-80 -mt-2 md:-mt-4 transition-all duration-1000 ${
+        className={`w-48 md:w-64 lg:w-80 mt-2 md:mt-0 transition-all duration-1000 ${
           phase >= 3 ? "opacity-100" : "opacity-0"
         }`}
         fill="none"
