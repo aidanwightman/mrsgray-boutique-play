@@ -6,13 +6,18 @@ import athleteAward from "@/assets/athlete-award.png";
 import athleteFocus from "@/assets/athlete-focus.png";
 import athleteCelebration from "@/assets/athlete-celebration.png";
 import athleteHandshake from "@/assets/athlete-handshake.png";
+import athleteGoalkeeper from "@/assets/athlete-goalkeeper.png";
+import athleteBlue from "@/assets/athlete-blue.png";
 
+// Positioned around the edges, avoiding center text area
 const aboutImages = [
-  { src: athleteSpence, position: { left: "5%", top: "12%" }, rotation: -3 },
-  { src: athleteAward, position: { left: "72%", top: "8%" }, rotation: 2 },
-  { src: athleteFocus, position: { left: "8%", top: "55%" }, rotation: 2 },
-  { src: athleteCelebration, position: { left: "70%", top: "52%" }, rotation: -2 },
-  { src: athleteHandshake, position: { left: "38%", top: "75%" }, rotation: 1 },
+  { src: athleteSpence, position: { left: "2%", top: "5%" }, rotation: -2, size: "w-24 md:w-36 lg:w-44" },
+  { src: athleteAward, position: { right: "3%", top: "8%" }, rotation: 2, size: "w-24 md:w-32 lg:w-40" },
+  { src: athleteFocus, position: { left: "3%", top: "45%" }, rotation: 1, size: "w-20 md:w-28 lg:w-36" },
+  { src: athleteGoalkeeper, position: { right: "2%", top: "40%" }, rotation: -1, size: "w-22 md:w-30 lg:w-38" },
+  { src: athleteCelebration, position: { left: "5%", bottom: "8%" }, rotation: 2, size: "w-24 md:w-32 lg:w-40" },
+  { src: athleteBlue, position: { right: "5%", bottom: "10%" }, rotation: -2, size: "w-24 md:w-36 lg:w-44" },
+  { src: athleteHandshake, position: { left: "50%", bottom: "3%", transform: "translateX(-50%)" }, rotation: 0, size: "w-28 md:w-36 lg:w-44" },
 ];
 
 const About = () => {
@@ -29,7 +34,7 @@ const About = () => {
           newState[index] = true;
           return newState;
         });
-      }, 400 + index * 200)
+      }, 400 + index * 150)
     );
 
     // Text fade in
@@ -59,30 +64,28 @@ const About = () => {
         <span className="text-[10px] tracking-[0.2em] uppercase font-sans">Home</span>
       </button>
 
-      {/* Floating images with smooth fade animations */}
+      {/* Floating images positioned around edges */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {aboutImages.map((image, index) => (
           <div
             key={index}
             className="absolute transition-all ease-out"
             style={{
-              left: image.position.left,
-              top: image.position.top,
-              transform: `rotate(${image.rotation}deg)`,
+              ...image.position,
               zIndex: index,
               opacity: imagesVisible[index] ? 1 : 0,
-              transitionDuration: '1200ms',
-              transitionDelay: `${index * 100}ms`,
+              transitionDuration: '1000ms',
             }}
           >
-            <div className="relative group pointer-events-auto">
+            <div 
+              className="relative group pointer-events-auto"
+              style={{ transform: `rotate(${image.rotation}deg)` }}
+            >
               <img
                 src={image.src}
                 alt={`Mrs Gray athlete ${index + 1}`}
-                className="w-28 md:w-40 lg:w-48 h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl"
-                style={{
-                  filter: "contrast(1.05)",
-                }}
+                className={`${image.size} h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl`}
+                style={{ filter: "contrast(1.05)" }}
               />
               <div className="absolute inset-0 border border-foreground/10" />
             </div>
@@ -90,10 +93,10 @@ const About = () => {
         ))}
       </div>
 
-      {/* Main content */}
+      {/* Main content - centered with max width */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
         <div 
-          className="max-w-2xl mx-auto text-center transition-all duration-1000 ease-out"
+          className="max-w-lg mx-auto text-center transition-all duration-1000 ease-out"
           style={{
             opacity: textVisible ? 1 : 0,
             transform: textVisible ? 'translateY(0)' : 'translateY(20px)',
