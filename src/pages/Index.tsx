@@ -1,20 +1,34 @@
 import AnimatedLogo from "@/components/AnimatedLogo";
-import { useEffect, useState } from "react";
+import PageTurnIndicator from "@/components/PageTurnIndicator";
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [showTagline, setShowTagline] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowTagline(true), 3500);
-    return () => clearTimeout(timer);
+  const handleAnimationComplete = useCallback(() => {
+    setShowTagline(true);
   }, []);
+
+  const handlePageTurn = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      navigate("/about");
+    }, 600);
+  }, [navigate]);
 
   return (
     <>
       {/* SEO */}
       <h1 className="sr-only">Mrs Gray - Premier Boutique Football Agency for Women's Football</h1>
       
-      <main className="min-h-screen bg-background flex flex-col items-center justify-center relative overflow-hidden selection:bg-foreground selection:text-background">
+      <main 
+        className={`min-h-screen bg-background flex flex-col items-center justify-center relative overflow-hidden selection:bg-foreground selection:text-background transition-all duration-600 ${
+          isTransitioning ? "opacity-0 -translate-y-8" : "opacity-100"
+        }`}
+      >
         {/* Subtle noise texture overlay */}
         <div className="absolute inset-0 opacity-[0.015] pointer-events-none bg-noise" />
         
@@ -23,7 +37,7 @@ const Index = () => {
         
         {/* Main content */}
         <div className="relative z-10 flex flex-col items-center justify-center px-6">
-          <AnimatedLogo />
+          <AnimatedLogo onAnimationComplete={handleAnimationComplete} />
           
           {/* Tagline */}
           <p 
@@ -45,6 +59,9 @@ const Index = () => {
             <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
           </div>
         </div>
+
+        {/* Page turn indicator */}
+        <PageTurnIndicator visible={showTagline} onClick={handlePageTurn} />
 
         {/* Footer hint */}
         <div 
