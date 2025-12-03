@@ -5,19 +5,18 @@ import athleteSpence from "@/assets/athlete-spence.png";
 import athleteAward from "@/assets/athlete-award.png";
 import athleteFocus from "@/assets/athlete-focus.png";
 import athleteCelebration from "@/assets/athlete-celebration.png";
-import athleteHandshake from "@/assets/athlete-handshake.png";
+
 import athleteGoalkeeper from "@/assets/athlete-goalkeeper.png";
 import athleteBlue from "@/assets/athlete-blue.png";
 
-// Positioned around the edges, avoiding center text area
+// 6 images positioned around edges, avoiding center text
 const aboutImages = [
-  { src: athleteSpence, position: { left: "2%", top: "5%" }, rotation: -2, size: "w-24 md:w-36 lg:w-44" },
-  { src: athleteAward, position: { right: "3%", top: "8%" }, rotation: 2, size: "w-24 md:w-32 lg:w-40" },
-  { src: athleteFocus, position: { left: "3%", top: "45%" }, rotation: 1, size: "w-20 md:w-28 lg:w-36" },
-  { src: athleteGoalkeeper, position: { right: "2%", top: "40%" }, rotation: -1, size: "w-22 md:w-30 lg:w-38" },
-  { src: athleteCelebration, position: { left: "5%", bottom: "8%" }, rotation: 2, size: "w-24 md:w-32 lg:w-40" },
-  { src: athleteBlue, position: { right: "5%", bottom: "10%" }, rotation: -2, size: "w-24 md:w-36 lg:w-44" },
-  { src: athleteHandshake, position: { left: "50%", bottom: "3%", transform: "translateX(-50%)" }, rotation: 0, size: "w-28 md:w-36 lg:w-44" },
+  { src: athleteSpence, position: { left: "4%", top: "8%" }, rotation: -2, size: "w-20 md:w-28 lg:w-32" },
+  { src: athleteAward, position: { right: "5%", top: "12%" }, rotation: 2, size: "w-18 md:w-24 lg:w-28" },
+  { src: athleteFocus, position: { left: "3%", bottom: "35%" }, rotation: 1, size: "w-18 md:w-24 lg:w-28" },
+  { src: athleteGoalkeeper, position: { right: "4%", bottom: "30%" }, rotation: -1, size: "w-20 md:w-26 lg:w-30" },
+  { src: athleteCelebration, position: { left: "6%", bottom: "6%" }, rotation: 2, size: "w-20 md:w-28 lg:w-32" },
+  { src: athleteBlue, position: { right: "6%", bottom: "8%" }, rotation: -2, size: "w-20 md:w-28 lg:w-32" },
 ];
 
 const About = () => {
