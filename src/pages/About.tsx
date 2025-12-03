@@ -10,19 +10,28 @@ import athleteGoalkeeper from "@/assets/athlete-goalkeeper.png";
 import athleteBlue from "@/assets/athlete-blue.png";
 
 // 6 images positioned around edges, avoiding center text
+// Mobile: smaller sizes, pushed further to edges
 const aboutImages = [
-  { src: athleteSpence, position: { left: "4%", top: "8%" }, rotation: -2, size: "w-20 md:w-28 lg:w-32" },
-  { src: athleteAward, position: { right: "5%", top: "12%" }, rotation: 2, size: "w-18 md:w-24 lg:w-28" },
-  { src: athleteFocus, position: { left: "3%", bottom: "35%" }, rotation: 1, size: "w-18 md:w-24 lg:w-28" },
-  { src: athleteGoalkeeper, position: { right: "4%", bottom: "30%" }, rotation: -1, size: "w-20 md:w-26 lg:w-30" },
-  { src: athleteCelebration, position: { left: "6%", bottom: "6%" }, rotation: 2, size: "w-20 md:w-28 lg:w-32" },
-  { src: athleteBlue, position: { right: "6%", bottom: "8%" }, rotation: -2, size: "w-20 md:w-28 lg:w-32" },
+  { src: athleteSpence, position: { left: "2%", top: "4%" }, mobilePosition: { left: "2%", top: "2%" }, rotation: -2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
+  { src: athleteAward, position: { right: "3%", top: "6%" }, mobilePosition: { right: "2%", top: "2%" }, rotation: 2, size: "w-14 sm:w-18 md:w-24 lg:w-28" },
+  { src: athleteFocus, position: { left: "2%", bottom: "38%" }, mobilePosition: { left: "2%", top: "18%" }, rotation: 1, size: "w-14 sm:w-18 md:w-24 lg:w-28" },
+  { src: athleteGoalkeeper, position: { right: "2%", bottom: "35%" }, mobilePosition: { right: "2%", top: "20%" }, rotation: -1, size: "w-16 sm:w-20 md:w-26 lg:w-30" },
+  { src: athleteCelebration, position: { left: "4%", bottom: "4%" }, mobilePosition: { left: "2%", bottom: "2%" }, rotation: 2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
+  { src: athleteBlue, position: { right: "4%", bottom: "4%" }, mobilePosition: { right: "2%", bottom: "2%" }, rotation: -2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
 ];
 
 const About = () => {
   const navigate = useNavigate();
   const [imagesVisible, setImagesVisible] = useState<boolean[]>(new Array(aboutImages.length).fill(false));
   const [textVisible, setTextVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     // Stagger image animations smoothly
@@ -70,7 +79,7 @@ const About = () => {
             key={index}
             className="absolute transition-all ease-out"
             style={{
-              ...image.position,
+              ...(isMobile ? image.mobilePosition : image.position),
               zIndex: index,
               opacity: imagesVisible[index] ? 1 : 0,
               transitionDuration: '1000ms',
@@ -93,19 +102,19 @@ const About = () => {
       </div>
 
       {/* Main content - centered with max width */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-12 sm:px-6 py-24">
         <div 
-          className="max-w-lg mx-auto text-center transition-all duration-1000 ease-out"
+          className="max-w-xs sm:max-w-lg mx-auto text-center transition-all duration-1000 ease-out"
           style={{
             opacity: textVisible ? 1 : 0,
             transform: textVisible ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light italic text-foreground mb-8 tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light italic text-foreground mb-6 sm:mb-8 tracking-tight">
             Who We Are
           </h1>
           
-          <div className="space-y-6 text-muted-foreground font-sans font-light text-sm md:text-base leading-relaxed tracking-wide">
+          <div className="space-y-4 sm:space-y-6 text-muted-foreground font-sans font-light text-xs sm:text-sm md:text-base leading-relaxed tracking-wide">
             <p>
               Mrs Gray is a female-focused, boutique football agency redefining the landscape of women's football.
             </p>
