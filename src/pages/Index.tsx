@@ -1,84 +1,110 @@
-import AnimatedLogo from "@/components/AnimatedLogo";
-import PageTurnIndicator from "@/components/PageTurnIndicator";
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import Navigation from "@/components/Navigation";
+import IntroAnimation from "@/components/IntroAnimation";
 
 const Index = () => {
-  const [showTagline, setShowTagline] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const navigate = useNavigate();
 
-  const handleAnimationComplete = useCallback(() => {
-    setShowTagline(true);
-  }, []);
-
-  const handlePageTurn = useCallback(() => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      navigate("/about");
-    }, 600);
-  }, [navigate]);
+  // Video placeholder - using a cinematic sports/fashion loop
+  // Fallback to a solid background if video fails
+  const videoUrl = "https://videos.pexels.com/video-files/3045163/3045163-hd_1920_1080_25fps.mp4";
 
   return (
     <>
-      {/* SEO */}
-      <h1 className="sr-only">Mrs Gray - Premier Boutique Football Agency for Women's Football</h1>
+      <IntroAnimation onComplete={() => setIntroComplete(true)} />
       
-      <main 
-        className={`min-h-screen bg-background flex flex-col items-center justify-center relative overflow-hidden selection:bg-foreground selection:text-background transition-all duration-600 ${
-          isTransitioning ? "opacity-0 -translate-y-8" : "opacity-100"
-        }`}
-      >
-        {/* Subtle noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.015] pointer-events-none bg-noise" />
-        
-        {/* Gradient vignette */}
-        <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
-        
-        {/* Main content */}
-        <div className="relative z-10 flex flex-col items-center justify-center px-6">
-          <AnimatedLogo onAnimationComplete={handleAnimationComplete} />
+      {introComplete && (
+        <>
+          <Navigation />
           
-          {/* Tagline */}
-          <p 
-            className={`mt-16 md:mt-20 text-muted-foreground tracking-[0.25em] uppercase text-[10px] md:text-xs font-sans font-light transition-all duration-1000 ${
-              showTagline ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            Boutique Football Agency
-          </p>
+          <main className="min-h-screen relative overflow-hidden bg-background">
+            {/* Video Background */}
+            <div className="absolute inset-0 w-full h-full">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                onLoadedData={() => setVideoLoaded(true)}
+                onError={() => setVideoLoaded(true)} // Fallback if video fails
+              >
+                <source src={videoUrl} type="video/mp4" />
+              </video>
+              
+              {/* Fallback solid background */}
+              <div className="absolute inset-0 bg-background" />
+              
+              {/* Dark Overlay with blend mode */}
+              <div 
+                className="absolute inset-0 bg-background/70 mix-blend-overlay"
+                style={{ backgroundColor: "rgba(74, 73, 74, 0.85)" }}
+              />
+            </div>
 
-          {/* Decorative dots */}
-          <div 
-            className={`flex items-center gap-3 mt-8 transition-all duration-700 delay-300 ${
-              showTagline ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-          </div>
-        </div>
+            {/* Hero Content */}
+            <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
+              <div className="text-center max-w-6xl mx-auto">
+                {/* Main Heading - Massive, Bold */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={videoLoaded ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="font-heading text-6xl md:text-8xl lg:text-[12rem] xl:text-[14rem] font-bold text-foreground tracking-tighter leading-none mb-8"
+                  style={{ color: "#e2d8cc" }}
+                >
+                  MRS GRAY
+                  <br />
+                  <span className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-normal tracking-wider">
+                    AGENCY
+                  </span>
+                </motion.h1>
 
-        {/* Page turn indicator */}
-        <PageTurnIndicator visible={showTagline} onClick={handlePageTurn} />
+                {/* CTA Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={videoLoaded ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                  className="mt-12"
+                >
+                  <button
+                    onClick={() => navigate("/lineup")}
+                    className="px-12 py-4 bg-foreground text-background font-heading text-lg tracking-wider uppercase hover:bg-foreground/90 transition-all duration-300 border-2 border-foreground"
+                    style={{ 
+                      backgroundColor: "#e2d8cc",
+                      color: "#4a494a",
+                      borderRadius: "0"
+                    }}
+                  >
+                    View The Lineup
+                  </button>
+                </motion.div>
+              </div>
+            </div>
 
-        {/* Footer hint */}
-        <div 
-          className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-700 ${
-            showTagline ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <a 
-            href="https://www.instagram.com/mrsgrayagency/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-muted-foreground/50 hover:text-muted-foreground text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 font-sans"
-          >
-            @mrsgrayagency
-          </a>
-        </div>
-      </main>
+            {/* Scroll Indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={videoLoaded ? { opacity: 1 } : {}}
+              transition={{ duration: 1, delay: 1 }}
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+            >
+              <div className="flex flex-col items-center gap-2 text-foreground/60">
+                <span className="text-xs font-sans tracking-wider uppercase">Scroll</span>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="w-px h-8 bg-foreground/60"
+                />
+              </div>
+            </motion.div>
+          </main>
+        </>
+      )}
     </>
   );
 };

@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
+        heading: ['Oswald', 'sans-serif'],
+        script: ['Pinyon Script', 'cursive'],
         sans: ['Montserrat', 'sans-serif'],
-        serif: ['Cormorant Garamond', 'serif'],
       },
       colors: {
         "background-dark": "hsl(var(--background-dark))",

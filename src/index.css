@@ -1,47 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Pinyon+Script&family=Montserrat:wght@200;300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap');
-
 /* 
   Mrs Gray Design System
-  Boutique luxury aesthetic for women's football agency
-  Dark, sophisticated, confident, feminine
+  Premium Boutique Sports Agency
+  Strict adherence to brand identity
 */
 
 @layer base {
   :root {
-    /* Dark mode by default - deep charcoal with warm undertones */
-    --background: 30 15% 6%;
-    --foreground: 35 15% 92%;
+    /* Brand Colors - Exact Specifications */
+    /* Primary Background: Dark Grey #4a494a */
+    --background: 0 0% 29%; /* #4a494a */
+    /* Primary Accent/Text: Beige #e2d8cc */
+    --foreground: 35 25% 88%; /* #e2d8cc */
 
-    --card: 30 12% 10%;
-    --card-foreground: 35 15% 92%;
+    --card: 0 0% 29%;
+    --card-foreground: 35 25% 88%;
 
-    --popover: 30 12% 10%;
-    --popover-foreground: 35 15% 92%;
+    --popover: 0 0% 29%;
+    --popover-foreground: 35 25% 88%;
 
-    --primary: 35 15% 92%;
-    --primary-foreground: 30 15% 6%;
+    --primary: 35 25% 88%;
+    --primary-foreground: 0 0% 29%;
 
-    --secondary: 30 8% 16%;
-    --secondary-foreground: 35 12% 85%;
+    --secondary: 0 0% 25%;
+    --secondary-foreground: 35 25% 88%;
 
-    --muted: 30 6% 20%;
-    --muted-foreground: 35 8% 50%;
+    --muted: 0 0% 22%;
+    --muted-foreground: 35 20% 70%;
 
-    --accent: 38 35% 55%;
-    --accent-foreground: 30 15% 6%;
+    --accent: 35 25% 88%;
+    --accent-foreground: 0 0% 29%;
 
     --destructive: 0 62% 35%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 8% 18%;
-    --input: 30 8% 18%;
-    --ring: 35 15% 85%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 35 25% 88%;
 
-    --radius: 0.25rem;
+    /* Sharp edges - no rounded corners */
+    --radius: 0rem;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -103,15 +106,48 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Montserrat', sans-serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
 }
 
 @layer utilities {
-  .font-serif {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+  .font-heading {
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .font-script {
+    font-family: 'Pinyon Script', cursive;
   }
 
   .font-sans {
     font-family: 'Montserrat', system-ui, sans-serif;
+  }
+
+  /* Text stroke utility for outline text effects */
+  .text-stroke {
+    -webkit-text-stroke: 1px hsl(var(--foreground));
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Fade-in-up animation */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Radial vignette for depth - dark edges for dark mode */

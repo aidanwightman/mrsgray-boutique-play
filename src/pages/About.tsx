@@ -1,158 +1,104 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ChevronUp } from "lucide-react";
+import { motion } from "framer-motion";
+import Navigation from "@/components/Navigation";
+import SignaturePhoto from "@/components/SignaturePhoto";
 import athleteSpence from "@/assets/athlete-spence.png";
-import athleteAward from "@/assets/athlete-award.png";
-import athleteFocus from "@/assets/athlete-focus.png";
-import athleteCelebration from "@/assets/athlete-celebration.png";
-
-import athleteGoalkeeper from "@/assets/athlete-goalkeeper.png";
-import athleteBlue from "@/assets/athlete-blue.png";
-
-// 6 images positioned around edges, avoiding center text
-// Mobile: smaller sizes, pushed further to edges
-const aboutImages = [
-  { src: athleteSpence, position: { left: "2%", top: "4%" }, mobilePosition: { left: "2%", top: "2%" }, rotation: -2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
-  { src: athleteAward, position: { right: "3%", top: "6%" }, mobilePosition: { right: "2%", top: "2%" }, rotation: 2, size: "w-14 sm:w-18 md:w-24 lg:w-28" },
-  { src: athleteFocus, position: { left: "2%", bottom: "38%" }, mobilePosition: { left: "2%", top: "18%" }, rotation: 1, size: "w-14 sm:w-18 md:w-24 lg:w-28" },
-  { src: athleteGoalkeeper, position: { right: "2%", bottom: "35%" }, mobilePosition: { right: "2%", top: "20%" }, rotation: -1, size: "w-16 sm:w-20 md:w-26 lg:w-30" },
-  { src: athleteCelebration, position: { left: "4%", bottom: "4%" }, mobilePosition: { left: "2%", bottom: "2%" }, rotation: 2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
-  { src: athleteBlue, position: { right: "4%", bottom: "4%" }, mobilePosition: { right: "2%", bottom: "2%" }, rotation: -2, size: "w-16 sm:w-20 md:w-28 lg:w-32" },
-];
 
 const About = () => {
-  const navigate = useNavigate();
-  const [imagesVisible, setImagesVisible] = useState<boolean[]>(new Array(aboutImages.length).fill(false));
-  const [textVisible, setTextVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    // Stagger image animations smoothly
-    const timers = aboutImages.map((_, index) => 
-      setTimeout(() => {
-        setImagesVisible(prev => {
-          const newState = [...prev];
-          newState[index] = true;
-          return newState;
-        });
-      }, 400 + index * 150)
-    );
-
-    // Text fade in
-    const textTimer = setTimeout(() => setTextVisible(true), 300);
-
-    return () => {
-      timers.forEach(clearTimeout);
-      clearTimeout(textTimer);
-    };
-  }, []);
-
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden selection:bg-foreground selection:text-background">
-      {/* Subtle noise texture overlay */}
-      <div className="absolute inset-0 opacity-[0.015] pointer-events-none bg-noise" />
+    <>
+      <Navigation />
       
-      {/* Gradient vignette */}
-      <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
-
-      {/* Back to home button */}
-      <button
-        onClick={() => navigate("/")}
-        className="fixed top-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-1 text-muted-foreground/50 hover:text-muted-foreground transition-colors duration-300 group"
-        aria-label="Back to home"
-      >
-        <ChevronUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" strokeWidth={1} />
-        <span className="text-[10px] tracking-[0.2em] uppercase font-sans">Home</span>
-      </button>
-
-      {/* Floating images positioned around edges */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {aboutImages.map((image, index) => (
-          <div
-            key={index}
-            className="absolute transition-all ease-out"
-            style={{
-              ...(isMobile ? image.mobilePosition : image.position),
-              zIndex: index,
-              opacity: imagesVisible[index] ? 1 : 0,
-              transitionDuration: '1000ms',
-            }}
-          >
-            <div 
-              className="relative group pointer-events-auto"
-              style={{ transform: `rotate(${image.rotation}deg)` }}
+      <main className="min-h-screen bg-background pt-24">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 min-h-[80vh]">
+            {/* Left Column - Text */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col justify-center space-y-8 py-12"
             >
-              <img
-                src={image.src}
-                alt={`Mrs Gray athlete ${index + 1}`}
-                className={`${image.size} h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl`}
-                style={{ filter: "contrast(1.05)" }}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="font-heading text-5xl md:text-6xl lg:text-7xl text-foreground tracking-tight"
+              >
+                About
+              </motion.h1>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="space-y-6 text-foreground/80 font-sans text-base md:text-lg leading-relaxed"
+              >
+                <p>
+                  We are all about keeping things simple. Mrs Gray is a female-focused, boutique football agency redefining the landscape of women's football.
+                </p>
+                
+                <p>
+                  Founded by former footballer <span className="text-foreground italic">Michaela Gooden</span>, 
+                  the agency blends real experience with purpose, representing a carefully selected group of athletes.
+                </p>
+                
+                <p>
+                  As a boutique agency, we thrive on intention—prioritising time, trust, and tailored support.
+                </p>
+                
+                <p className="text-foreground font-script text-2xl md:text-3xl italic pt-4">
+                  We celebrate the woman behind the athlete.
+                </p>
+              </motion.div>
+
+              {/* Contact Footer */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="pt-12 border-t border-foreground/20 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm"
+              >
+                <div>
+                  <p className="text-foreground/60 font-sans uppercase tracking-wider text-xs mb-2">Location</p>
+                  <p className="text-foreground font-sans">London, UK</p>
+                </div>
+                <div>
+                  <p className="text-foreground/60 font-sans uppercase tracking-wider text-xs mb-2">Email</p>
+                  <a href="mailto:info@mrsgrayagency.com" className="text-foreground font-sans hover:opacity-80 transition-opacity">
+                    info@mrsgrayagency.com
+                  </a>
+                </div>
+                <div>
+                  <p className="text-foreground/60 font-sans uppercase tracking-wider text-xs mb-2">Socials</p>
+                  <a 
+                    href="https://www.instagram.com/mrsgrayagency/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-foreground font-sans hover:opacity-80 transition-opacity"
+                  >
+                    @mrsgrayagency
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Signature Photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex items-center justify-center"
+            >
+              <SignaturePhoto 
+                image={athleteSpence} 
+                signature="Mrs Gray" 
               />
-              <div className="absolute inset-0 border border-foreground/10" />
-            </div>
+            </motion.div>
           </div>
-        ))}
-      </div>
-
-      {/* Main content - centered with max width */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-12 sm:px-6 py-24">
-        <div 
-          className="max-w-xs sm:max-w-lg mx-auto text-center transition-all duration-1000 ease-out"
-          style={{
-            opacity: textVisible ? 1 : 0,
-            transform: textVisible ? 'translateY(0)' : 'translateY(20px)',
-          }}
-        >
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light italic text-foreground mb-6 sm:mb-8 tracking-tight">
-            Who We Are
-          </h1>
-          
-          <div className="space-y-4 sm:space-y-6 text-muted-foreground font-sans font-light text-xs sm:text-sm md:text-base leading-relaxed tracking-wide">
-            <p>
-              Mrs Gray is a female-focused, boutique football agency redefining the landscape of women's football.
-            </p>
-            
-            <p>
-              Founded by former footballer <span className="text-foreground italic">Michaela Gooden</span>, 
-              the agency blends real experience with purpose, representing a carefully selected group of athletes.
-            </p>
-            
-            <p>
-              As a boutique agency, we thrive on intention—prioritising time, trust, and tailored support.
-            </p>
-            
-            <p className="text-foreground/80 font-serif italic text-lg md:text-xl mt-10">
-              We celebrate the woman behind the athlete, empowering each client to grow with confidence, 
-              express their individuality, and leave a legacy both on and off the pitch.
-            </p>
-          </div>
-
-          {/* Decorative element */}
-          <div className="mt-16 flex items-center justify-center gap-8">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-muted-foreground/30" />
-            <span className="text-muted-foreground/40 font-serif italic text-sm">Est. 2024</span>
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-muted-foreground/30" />
-          </div>
-
-          {/* Instagram link */}
-          <a 
-            href="https://www.instagram.com/mrsgrayagency/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block mt-12 text-muted-foreground/50 hover:text-muted-foreground text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 font-sans"
-          >
-            @mrsgrayagency
-          </a>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
