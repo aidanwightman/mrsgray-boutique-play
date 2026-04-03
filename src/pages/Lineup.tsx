@@ -23,7 +23,7 @@ const PlayerCard = ({ player, index }: { player: Player; index: number }) => {
             src={player.image}
             alt={player.name}
             className={`w-full h-full object-cover transition-all duration-700 ${
-              isHovered ? "grayscale-0 scale-105" : "grayscale"
+              isHovered ? "grayscale-0 scale-105 brightness-110 saturate-150" : "grayscale"
             }`}
           />
         </div>
