@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const PlayerCard = ({ player, index }: { player: Player; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   return (
     <motion.div
@@ -14,6 +15,7 @@ const PlayerCard = ({ player, index }: { player: Player; index: number }) => {
       className="relative group cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setIsClicked(!isClicked)}
     >
       {/* Card Container - 3:4 Aspect Ratio */}
       <div className="relative aspect-[3/4] overflow-hidden bg-background border border-foreground/10">
@@ -35,7 +37,7 @@ const PlayerCard = ({ player, index }: { player: Player; index: number }) => {
         <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            animate={isClicked ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
           >
             <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-2 tracking-tight">
