@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 interface SignaturePhotoProps {
   image: string;
@@ -6,19 +7,25 @@ interface SignaturePhotoProps {
 }
 
 const SignaturePhoto = ({ image, signature }: SignaturePhotoProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative w-full h-full min-h-[500px]"
+      className="relative w-full h-full min-h-[500px] cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Grayscale Image */}
+      {/* Image with hover effect */}
       <div className="absolute inset-0">
         <img
           src={image}
           alt="Signature"
-          className="w-full h-full object-cover grayscale"
+          className={`w-full h-full object-cover transition-all duration-700 ${
+            isHovered ? "grayscale-0 scale-105 brightness-110 saturate-150" : "grayscale"
+          }`}
         />
       </div>
 

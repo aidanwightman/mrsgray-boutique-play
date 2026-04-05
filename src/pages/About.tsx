@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import SignaturePhoto from "@/components/SignaturePhoto";
-import athleteSpence from "@/assets/athlete-spence.png";
+import michaelaPhoto from "@/assets/Michaela.jpg";
 
 const About = () => {
   return (
@@ -90,9 +90,9 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex items-center justify-center"
             >
-              <SignaturePhoto 
-                image={athleteSpence} 
-                signature="Mrs Gray" 
+              <SignaturePhoto
+                image={michaelaPhoto}
+                signature="Mrs Gray"
               />
             </motion.div>
           </div>
