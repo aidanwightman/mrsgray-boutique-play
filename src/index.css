@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Dark base with white accents */
-    --background: 20 10% 7%;
+    /* Pure black base with white accents */
+    --background: 0 0% 2%;
     --foreground: 0 0% 95%;
 
     --card: 20 8% 11%;
@@ -37,7 +37,7 @@
 
     --radius: 0rem;
 
-    --sidebar-background: 20 10% 7%;
+    --sidebar-background: 0 0% 2%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 0 0% 95%;
     --sidebar-primary-foreground: 20 10% 7%;
@@ -82,6 +82,11 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @layer utilities {

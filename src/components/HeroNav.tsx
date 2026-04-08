@@ -1,7 +1,12 @@
 import { useState, useEffect, useId, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 
-const navItems = ["HOME", "PLAYERS", "ABOUT", "CONTACT"] as const;
+const navItems = [
+  { label: "HOME",    href: "/#home" },
+  { label: "PLAYERS", href: "/#players" },
+  { label: "ABOUT",   href: "/about" },
+  { label: "CONTACT", href: "/about#contact" },
+] as const;
 
 interface HeroNavProps {
   activeSection?: string;
@@ -36,25 +41,25 @@ const HeroNav = ({ activeSection }: HeroNavProps) => {
         {isOpen ? <X className="h-5 w-5 shrink-0" aria-hidden /> : <Menu className="h-5 w-5 shrink-0" aria-hidden />}
       </button>
 
-      {/* Desktop nav */}
-      <nav className="hidden flex-row items-center gap-6 lg:gap-8 md:flex" aria-label="Main">
-        {navItems.map((item, index) => {
-          const isActive = activeSection === item.toLowerCase();
+      {/* Desktop nav — absolutely centred in the header */}
+      <nav className="hidden md:flex flex-row items-center gap-6 lg:gap-8 absolute left-1/2 -translate-x-1/2" aria-label="Main">
+        {navItems.map(({ label, href }, index) => {
+          const isActive = activeSection === label.toLowerCase();
           return (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={label}
+              href={href}
               className={`font-condensed text-xs lg:text-sm tracking-[0.2em] transition-colors duration-300 relative uppercase ${
-                isActive || hoveredItem === item
+                isActive || hoveredItem === label
                   ? "text-foreground"
-                  : "text-foreground/50 hover:text-foreground"
+                  : "text-foreground/70 hover:text-foreground"
               }`}
               style={{ animationDelay: `${index * 0.1 + 0.3}s` }}
-              onMouseEnter={() => setHoveredItem(item)}
+              onMouseEnter={() => setHoveredItem(label)}
               onMouseLeave={() => setHoveredItem(null)}
             >
               <span className="relative inline-block pb-0.5">
-                {item}
+                {label}
                 {isActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-px bg-foreground" />
                 )}
@@ -75,13 +80,12 @@ const HeroNav = ({ activeSection }: HeroNavProps) => {
         aria-hidden={!isOpen}
       >
         <nav className="flex flex-col py-1" aria-label="Mobile">
-          {navItems.map((item) => {
-            const slug = item.toLowerCase();
-            const isActive = activeSection === slug;
+          {navItems.map(({ label, href }) => {
+            const isActive = activeSection === label.toLowerCase();
             return (
               <a
-                key={item}
-                href={`#${slug}`}
+                key={label}
+                href={href}
                 onClick={closeMenu}
                 className={`font-condensed text-sm tracking-[0.2em] uppercase px-6 py-3.5 transition-colors duration-150 touch-manipulation border-l-2 ${
                   isActive
@@ -89,7 +93,7 @@ const HeroNav = ({ activeSection }: HeroNavProps) => {
                     : "text-white/50 border-transparent hover:text-white hover:bg-white/5"
                 }`}
               >
-                {item}
+                {label}
               </a>
             );
           })}
