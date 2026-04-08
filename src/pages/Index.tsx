@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { useRef } from "react";
 import HeroNav from "@/components/HeroNav";
 import PlayerCard from "@/components/PlayerCard";
 import { Mail, Instagram, Linkedin, Twitter } from "lucide-react";
@@ -101,6 +100,66 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   );
 };
 
+// --- Sequential line-by-line typewriter ---
+const HERO_LINES = [
+  "We are a boutique women's football agency",
+  "that does things differently.",
+  "With a clear, considered approach,",
+  "we support athletes beyond representation",
+  "by guiding their development, protecting their journey,",
+  "and helping them grow with confidence.",
+];
+
+const SPEED = 28;   // ms per character
+const PAUSE = 180;  // ms gap between lines
+const INIT  = 500;  // ms before first line starts
+
+// Pre-calculate when each line starts typing
+const LINE_DELAYS = HERO_LINES.reduce<number[]>((acc, line, i) => {
+  if (i === 0) return [INIT];
+  return [...acc, acc[i - 1] + HERO_LINES[i - 1].length * SPEED + PAUSE];
+}, []);
+
+const HeroText = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  useEffect(() => {
+    if (!inView) return;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    HERO_LINES.forEach((_, i) => {
+      timers.push(setTimeout(() => setActiveIndex(i), LINE_DELAYS[i]));
+    });
+
+    return () => timers.forEach(clearTimeout);
+  }, [inView]);
+
+  return (
+    <div ref={ref} className="space-y-[0.15em]">
+      {HERO_LINES.map((line, i) => (
+        <div key={i}>
+          {activeIndex >= i ? (
+            <TextType
+              as="span"
+              text={line}
+              typingSpeed={SPEED}
+              initialDelay={0}
+              loop={false}
+              showCursor={activeIndex === i}
+              startOnVisible={false}
+              className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light"
+              cursorCharacter="|"
+              cursorClassName="text-[#c4a470]"
+            />
+          ) : null}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // --- Scroll reveal wrapper ---
 const FadeUp = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null);
@@ -196,21 +255,9 @@ const Index = () => {
                     />
                   </div>
 
-                  {/* Agency description - typewriter effect */}
+                  {/* Agency description - line-by-line typewriter */}
                   <div className="flex flex-col gap-5 md:gap-6 py-8 md:py-12 px-2 min-[480px]:px-4 md:px-8 max-w-3xl">
-                    <TextType
-                      as="p"
-                      text="We are a boutique women's football agency that does things differently. With a clear, considered approach, we support athletes beyond representation by guiding their development, protecting their journey, and helping them grow with confidence."
-                      typingSpeed={22}
-                      initialDelay={400}
-                      loop={false}
-                      showCursor={true}
-                      hideCursorWhileTyping={false}
-                      cursorCharacter="|"
-                      cursorClassName="text-[#c4a470]"
-                      startOnVisible={true}
-                      className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light"
-                    />
+                    <HeroText />
                     {/* Accent tagline — warm gold colour */}
                     <p className="font-condensed text-base sm:text-lg md:text-xl tracking-[0.08em] font-semibold uppercase"
                       style={{ color: '#c4a470' }}>
