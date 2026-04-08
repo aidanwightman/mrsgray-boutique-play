@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useRef } from "react";
 import HeroNav from "@/components/HeroNav";
 import PlayerCard from "@/components/PlayerCard";
 import { Mail, Instagram, Linkedin, Twitter } from "lucide-react";
@@ -99,6 +100,22 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   );
 };
 
+// --- Scroll reveal wrapper ---
+const FadeUp = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 28 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 // --- Main Page ---
 const Index = () => {
   const [introComplete, setIntroComplete] = useState(false);
@@ -166,28 +183,30 @@ const Index = () => {
                 <div className="h-14 sm:h-16 md:h-20" />
 
                 <div className="flex-1 flex flex-col justify-between animate-fade-in">
-                  {/* Mrs Gray Script Logo */}
-                  <div className="flex justify-center pt-2 md:pt-4 overflow-hidden">
+                  {/* Warm glow behind logo */}
+                  <div className="relative flex justify-center pt-2 md:pt-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-[60%] h-[60%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(196,164,112,0.12)_0%,transparent_70%)] blur-2xl" />
+                    </div>
                     <img
                       src={mrsGrayScript}
                       alt="Mrs Gray"
-                      className="w-full max-w-3xl md:max-w-5xl lg:max-w-6xl max-h-[28vh] md:max-h-[32vh] object-contain select-none pointer-events-none opacity-90"
+                      className="relative w-full max-w-3xl md:max-w-5xl lg:max-w-6xl max-h-[28vh] md:max-h-[32vh] object-contain select-none pointer-events-none opacity-90"
                     />
                   </div>
 
                   {/* Agency description - below logo */}
-                  <div className="flex flex-col gap-6 md:gap-8 py-8 md:py-12 px-2 min-[480px]:px-4 md:px-8 max-w-3xl">
+                  <div className="flex flex-col gap-5 md:gap-6 py-8 md:py-12 px-2 min-[480px]:px-4 md:px-8 max-w-3xl">
                     <p className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light">
                       We are a boutique women's football agency that does things differently. With a clear, considered approach, we support athletes beyond representation by guiding their development, protecting their journey, and helping them grow with confidence.
                     </p>
-                    <p className="font-condensed text-base sm:text-lg md:text-xl tracking-[0.04em] text-muted-foreground font-light">
+                    {/* Accent tagline — warm gold colour */}
+                    <p className="font-condensed text-base sm:text-lg md:text-xl tracking-[0.08em] font-semibold uppercase"
+                      style={{ color: '#c4a470' }}>
                       Long term growth over quick wins.
                     </p>
                   </div>
                 </div>
-
-                {/* Gradual blur at bottom of hero */}
-                <GradualBlur position="bottom" height="8rem" strength={3} divCount={8} curve="ease-out" />
 
                 {/* Bottom bar — social links */}
                 <div className="flex items-end justify-between px-2 min-[480px]:px-4 md:px-8 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] sm:pb-6 animate-fade-in border-t border-border/40" style={{ animationDelay: "0.6s" }}>
@@ -215,15 +234,17 @@ const Index = () => {
               <section id="players" className="relative scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-secondary/40 border-t border-white/10">
                 <GradualBlur position="top" height="5rem" strength={2} divCount={6} curve="ease-out" />
                 <div className="max-w-7xl mx-auto space-y-12 md:space-y-16">
-                  <div className="space-y-4">
-                    <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Our Players</h2>
-                    <div className="h-px w-24 bg-foreground/20" />
-                  </div>
+                  <FadeUp>
+                    <div className="space-y-4">
+                      <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Our Players</h2>
+                      <div className="h-px w-24" style={{ background: 'linear-gradient(to right, #c4a470, transparent)' }} />
+                    </div>
+                  </FadeUp>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 px-2 min-[480px]:px-4 md:px-0">
                     {players.map((player, index) => (
-                      <div key={player.name} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <FadeUp key={player.name} delay={index * 0.08}>
                         <PlayerCard name={player.name} club={player.club} image={player.image} />
-                      </div>
+                      </FadeUp>
                     ))}
                   </div>
                 </div>
@@ -233,10 +254,11 @@ const Index = () => {
               <section id="about" className="relative scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-white text-[#1a1816]">
                 <GradualBlur position="top" height="4rem" strength={1.5} divCount={5} curve="ease-out" />
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+                  <FadeUp>
                   <div className="space-y-8">
                     <div className="space-y-4">
                       <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-[#1a1816] uppercase">Who We Are</h2>
-                      <div className="h-px w-24 bg-[#1a1816]/25" />
+                      <div className="h-px w-24" style={{ background: 'linear-gradient(to right, #c4a470, transparent)' }} />
                     </div>
                     <div className="font-body text-base md:text-lg leading-relaxed text-[#1a1816]/65 space-y-6">
                       <p>
@@ -251,8 +273,10 @@ const Index = () => {
                       </p>
                     </div>
                   </div>
+                  </FadeUp>
 
                   {/* Services Box */}
+                  <FadeUp delay={0.15}>
                   <div className="bg-[#f5f3f0] p-8 md:p-10 space-y-6 border border-[#1a1816]/10">
                     <h3 className="font-condensed text-2xl md:text-3xl font-semibold tracking-wide uppercase text-[#1a1816]">Services</h3>
                     <ul className="space-y-3">
@@ -264,9 +288,11 @@ const Index = () => {
                       ))}
                     </ul>
                   </div>
+                  </FadeUp>
                 </div>
 
                 {/* Founder Section */}
+                <FadeUp delay={0.1}>
                 <div className="max-w-5xl mx-auto mt-16 md:mt-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
                   {/* Photo — smaller */}
                   <div className="mx-auto w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] bg-[#e8e6e2] relative overflow-hidden group cursor-default border border-[#1a1816]/10">
@@ -294,15 +320,18 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
+                </FadeUp>
               </section>
 
               {/* ── CONTACT SECTION ── back to dark */}
               <section id="contact" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-background border-t border-white/10">
                 <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12">
+                  <FadeUp>
                   <div className="space-y-4">
                     <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide uppercase text-foreground">Inquire</h2>
-                    <div className="h-px w-24 bg-white/20 mx-auto" />
+                    <div className="h-px w-24 mx-auto" style={{ background: 'linear-gradient(to right, transparent, #c4a470, transparent)' }} />
                   </div>
+                  </FadeUp>
                   <p className="font-body text-lg sm:text-xl md:text-2xl text-foreground/60 leading-relaxed max-w-2xl mx-auto">
                     For representation or partnership inquiries, please reach out to our team.
                   </p>

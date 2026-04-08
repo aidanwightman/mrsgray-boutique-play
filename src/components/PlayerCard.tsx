@@ -6,7 +6,7 @@ interface PlayerProps {
 
 const PlayerCard = ({ name, club, image }: PlayerProps) => {
   return (
-    <div className="relative aspect-[3/4] overflow-hidden group border border-border/40">
+    <div className="relative aspect-[3/4] overflow-hidden group border border-border/40 transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(196,164,112,0.18)]">
       {/* Image — colour by default, B&W on hover */}
       <img
         src={image}
