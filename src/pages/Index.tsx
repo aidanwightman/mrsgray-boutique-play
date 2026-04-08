@@ -357,12 +357,12 @@ const Index = () => {
                     <span
                       className="font-condensed font-black uppercase leading-none text-white text-center w-full"
                       style={{
-                        fontSize: 'clamp(3.5rem, 11vw, 10rem)',
+                        fontSize: 'clamp(3rem, 10vw, 9rem)',
                         opacity: 0.045,
                         letterSpacing: '0.04em',
                       }}
                     >
-                      WOMEN'S FOOTBALL
+                      WOMEN'S FOOTBALL AGENCY
                     </span>
                   </div>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
