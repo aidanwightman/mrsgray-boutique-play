@@ -6,6 +6,7 @@ import PlayerCard from "@/components/PlayerCard";
 import { Mail, Instagram, Linkedin, Twitter } from "lucide-react";
 import mrsGrayScript from "@/assets/script-font-bg.png";
 import GradualBlur from "@/components/GradualBlur";
+import TextType from "@/components/TextType";
 
 const players = [
   {
@@ -195,11 +196,21 @@ const Index = () => {
                     />
                   </div>
 
-                  {/* Agency description - below logo */}
+                  {/* Agency description - typewriter effect */}
                   <div className="flex flex-col gap-5 md:gap-6 py-8 md:py-12 px-2 min-[480px]:px-4 md:px-8 max-w-3xl">
-                    <p className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light">
-                      We are a boutique women's football agency that does things differently. With a clear, considered approach, we support athletes beyond representation by guiding their development, protecting their journey, and helping them grow with confidence.
-                    </p>
+                    <TextType
+                      as="p"
+                      text="We are a boutique women's football agency that does things differently. With a clear, considered approach, we support athletes beyond representation by guiding their development, protecting their journey, and helping them grow with confidence."
+                      typingSpeed={22}
+                      initialDelay={400}
+                      loop={false}
+                      showCursor={true}
+                      hideCursorWhileTyping={false}
+                      cursorCharacter="|"
+                      cursorClassName="text-[#c4a470]"
+                      startOnVisible={true}
+                      className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light"
+                    />
                     {/* Accent tagline — warm gold colour */}
                     <p className="font-condensed text-base sm:text-lg md:text-xl tracking-[0.08em] font-semibold uppercase"
                       style={{ color: '#c4a470' }}>

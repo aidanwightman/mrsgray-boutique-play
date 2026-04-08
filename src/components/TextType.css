@@ -1,0 +1,9 @@
+.text-type { display: inline; }
+.text-type__content { display: inline; }
+.text-type__cursor {
+  display: inline-block;
+  font-weight: 300;
+  opacity: 1;
+  margin-left: 1px;
+}
+.text-type__cursor--hidden { visibility: hidden; }
