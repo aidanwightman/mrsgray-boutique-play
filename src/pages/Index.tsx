@@ -136,7 +136,7 @@ const Index = () => {
           <header
             className={`fixed top-0 left-0 right-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
               isScrolled
-                ? 'bg-white/95 backdrop-blur-md border-b border-border py-2 md:py-3 shadow-sm'
+                ? 'bg-background/95 backdrop-blur-md border-b border-white/10 py-2 md:py-3 shadow-md'
                 : 'bg-transparent py-4 md:py-5'
             }`}
           >
@@ -224,15 +224,15 @@ const Index = () => {
                 </div>
               </section>
 
-              {/* ── ABOUT SECTION ── */}
-              <section id="about" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-background border-t border-border/50">
+              {/* ── ABOUT SECTION — white splash ── */}
+              <section id="about" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-white text-[#1a1816]">
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Who We Are</h2>
-                      <div className="h-px w-24 bg-foreground/20" />
+                      <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-[#1a1816] uppercase">Who We Are</h2>
+                      <div className="h-px w-24 bg-[#1a1816]/25" />
                     </div>
-                    <div className="font-body text-base md:text-lg leading-relaxed text-muted-foreground space-y-6">
+                    <div className="font-body text-base md:text-lg leading-relaxed text-[#1a1816]/65 space-y-6">
                       <p>
                         Mrs Gray is a female-focused, boutique football agency redefining the landscape of women's football.
                         Founded by former professional Michaela Gooden, the agency blends real experience with purpose,
@@ -247,13 +247,13 @@ const Index = () => {
                   </div>
 
                   {/* Services Box */}
-                  <div className="bg-secondary/50 p-8 md:p-10 space-y-6 border border-border/60">
-                    <h3 className="font-condensed text-2xl md:text-3xl font-semibold tracking-wide uppercase">Services</h3>
+                  <div className="bg-[#f5f3f0] p-8 md:p-10 space-y-6 border border-[#1a1816]/10">
+                    <h3 className="font-condensed text-2xl md:text-3xl font-semibold tracking-wide uppercase text-[#1a1816]">Services</h3>
                     <ul className="space-y-3">
                       {services.map((service, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full bg-foreground/40" />
-                          <span className="font-condensed text-sm md:text-base tracking-wide text-muted-foreground">{service}</span>
+                          <span className="mt-2 shrink-0 w-1 h-1 rounded-full bg-[#1a1816]/40" />
+                          <span className="font-condensed text-sm md:text-base tracking-wide text-[#1a1816]/65">{service}</span>
                         </li>
                       ))}
                     </ul>
@@ -263,7 +263,7 @@ const Index = () => {
                 {/* Founder Section */}
                 <div className="max-w-5xl mx-auto mt-16 md:mt-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
                   {/* Photo — smaller */}
-                  <div className="mx-auto w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] bg-muted relative overflow-hidden group cursor-default border border-border/40">
+                  <div className="mx-auto w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] bg-[#e8e6e2] relative overflow-hidden group cursor-default border border-[#1a1816]/10">
                     <img
                       src="/michaela.jpg"
                       alt="Michaela Gooden"
@@ -271,12 +271,12 @@ const Index = () => {
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1816]/15 to-transparent pointer-events-none" />
                   </div>
                   <div className="space-y-5">
-                    <h3 className="font-condensed text-3xl md:text-4xl font-semibold tracking-wide uppercase">Michaela Gooden</h3>
-                    <p className="font-condensed text-xs md:text-sm tracking-[0.25em] uppercase text-muted-foreground">Lead Intermediary & Founder</p>
-                    <div className="space-y-4 font-body text-base md:text-lg leading-relaxed text-muted-foreground">
+                    <h3 className="font-condensed text-3xl md:text-4xl font-semibold tracking-wide uppercase text-[#1a1816]">Michaela Gooden</h3>
+                    <p className="font-condensed text-xs md:text-sm tracking-[0.25em] uppercase text-[#1a1816]/50">Lead Intermediary & Founder</p>
+                    <div className="space-y-4 font-body text-base md:text-lg leading-relaxed text-[#1a1816]/65">
                       <p>
                         Michaela is a former professional footballer who transitioned to representation after a career
                         that spanned youth and senior clubs across England and a scholarship in the US.
@@ -290,19 +290,19 @@ const Index = () => {
                 </div>
               </section>
 
-              {/* ── CONTACT SECTION ── dark for contrast */}
-              <section id="contact" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-foreground text-background border-t border-border/50">
+              {/* ── CONTACT SECTION ── back to dark */}
+              <section id="contact" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-background border-t border-white/10">
                 <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12">
                   <div className="space-y-4">
-                    <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide uppercase text-background">Inquire</h2>
-                    <div className="h-px w-24 bg-background/30 mx-auto" />
+                    <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide uppercase text-foreground">Inquire</h2>
+                    <div className="h-px w-24 bg-white/20 mx-auto" />
                   </div>
-                  <p className="font-body text-lg sm:text-xl md:text-2xl text-background/75 leading-relaxed max-w-2xl mx-auto">
+                  <p className="font-body text-lg sm:text-xl md:text-2xl text-foreground/60 leading-relaxed max-w-2xl mx-auto">
                     For representation or partnership inquiries, please reach out to our team.
                   </p>
                   <a
                     href="mailto:info@mrsgray.agency"
-                    className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-base sm:text-lg md:text-xl font-condensed tracking-wider hover:opacity-70 transition-opacity text-background"
+                    className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-base sm:text-lg md:text-xl font-condensed tracking-wider text-foreground hover:opacity-70 transition-opacity"
                   >
                     <Mail className="w-5 h-5 shrink-0" />
                     <span>info@mrsgray.agency</span>
@@ -320,8 +320,8 @@ const Index = () => {
                         rel="noopener noreferrer"
                         className="flex flex-col items-center gap-2 group min-w-[4.5rem] touch-manipulation"
                       >
-                        <social.icon className="w-5 h-5 text-background/70 group-hover:text-background transition-colors" />
-                        <span className="font-condensed text-[10px] tracking-[0.2em] uppercase text-background/60 group-hover:text-background/90">{social.label}</span>
+                        <social.icon className="w-5 h-5 text-foreground/50 group-hover:text-foreground transition-colors" />
+                        <span className="font-condensed text-[10px] tracking-[0.2em] uppercase text-foreground/40 group-hover:text-foreground/80">{social.label}</span>
                       </a>
                     ))}
                   </div>

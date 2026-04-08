@@ -67,7 +67,7 @@ const HeroNav = ({ activeSection }: HeroNavProps) => {
       {/* Mobile dropdown — compact, slides down below header */}
       <div
         id={menuId}
-        className={`fixed left-0 right-0 z-[70] bg-white/98 backdrop-blur-sm border-b border-border shadow-md md:hidden transition-all duration-200 ease-out ${
+        className={`fixed left-0 right-0 z-[70] bg-[#111009]/98 backdrop-blur-sm border-b border-white/10 shadow-md md:hidden transition-all duration-200 ease-out ${
           isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto top-[56px]"
             : "opacity-0 -translate-y-1 pointer-events-none top-[56px]"
@@ -85,8 +85,8 @@ const HeroNav = ({ activeSection }: HeroNavProps) => {
                 onClick={closeMenu}
                 className={`font-condensed text-sm tracking-[0.2em] uppercase px-6 py-3.5 transition-colors duration-150 touch-manipulation border-l-2 ${
                   isActive
-                    ? "text-foreground border-foreground bg-secondary/60"
-                    : "text-foreground/55 border-transparent hover:text-foreground hover:bg-secondary/30"
+                    ? "text-white border-white bg-white/10"
+                    : "text-white/50 border-transparent hover:text-white hover:bg-white/5"
                 }`}
               >
                 {item}
