@@ -1,196 +1,133 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Pinyon+Script&family=Montserrat:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Barlow:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 
-  Mrs Gray Design System
-  Premium Boutique Sports Agency
-  Strict adherence to brand identity
-*/
-
 @layer base {
   :root {
-    /* Brand Colors - Exact Specifications */
-    /* Primary Background: Dark Grey #4a494a */
-    --background: 0 0% 29%; /* #4a494a */
-    /* Primary Accent/Text: Beige #e2d8cc */
-    --foreground: 35 25% 88%; /* #e2d8cc */
+    --background: 30 10% 8%;
+    --foreground: 36 25% 88%;
 
-    --card: 0 0% 29%;
-    --card-foreground: 35 25% 88%;
+    --card: 30 8% 12%;
+    --card-foreground: 36 25% 88%;
 
-    --popover: 0 0% 29%;
-    --popover-foreground: 35 25% 88%;
+    --popover: 30 8% 12%;
+    --popover-foreground: 36 25% 88%;
 
-    --primary: 35 25% 88%;
-    --primary-foreground: 0 0% 29%;
+    --primary: 36 30% 82%;
+    --primary-foreground: 30 10% 8%;
 
-    --secondary: 0 0% 25%;
-    --secondary-foreground: 35 25% 88%;
+    --secondary: 30 8% 16%;
+    --secondary-foreground: 36 25% 88%;
 
-    --muted: 0 0% 22%;
-    --muted-foreground: 35 20% 70%;
+    --muted: 30 6% 20%;
+    --muted-foreground: 30 10% 55%;
 
-    --accent: 35 25% 88%;
-    --accent-foreground: 0 0% 29%;
+    --accent: 36 30% 72%;
+    --accent-foreground: 30 10% 8%;
 
-    --destructive: 0 62% 35%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 25%;
-    --input: 0 0% 25%;
-    --ring: 35 25% 88%;
+    --border: 30 8% 20%;
+    --input: 30 8% 20%;
+    --ring: 36 30% 82%;
 
-    /* Sharp edges - no rounded corners */
     --radius: 0rem;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 30 10% 8%;
+    --sidebar-foreground: 36 25% 88%;
+    --sidebar-primary: 36 30% 82%;
+    --sidebar-primary-foreground: 30 10% 8%;
+    --sidebar-accent: 30 8% 16%;
+    --sidebar-accent-foreground: 36 25% 88%;
+    --sidebar-border: 30 8% 20%;
+    --sidebar-ring: 36 30% 82%;
+
+    /* Custom tokens */
+    --hero-gradient: linear-gradient(180deg, hsla(30, 10%, 8%, 0) 0%, hsla(30, 10%, 8%, 0.6) 100%);
+    --text-glow: 0 0 40px hsla(36, 30%, 82%, 0.1);
   }
 
-  .light {
-    /* Light mode - cream/ivory */
-    --background: 40 20% 96%;
-    --foreground: 30 10% 12%;
-
-    --card: 40 15% 98%;
-    --card-foreground: 30 10% 12%;
-
-    --popover: 40 15% 98%;
-    --popover-foreground: 30 10% 12%;
-
-    --primary: 30 10% 15%;
-    --primary-foreground: 40 20% 96%;
-
-    --secondary: 35 12% 88%;
-    --secondary-foreground: 30 10% 18%;
-
-    --muted: 35 10% 85%;
-    --muted-foreground: 30 8% 45%;
-
-    --accent: 38 40% 45%;
-    --accent-foreground: 40 20% 96%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 35 12% 85%;
-    --input: 35 12% 85%;
-    --ring: 30 10% 15%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  .dark {
+    --background: 30 10% 8%;
+    --foreground: 36 25% 88%;
+    --card: 30 8% 12%;
+    --card-foreground: 36 25% 88%;
+    --popover: 30 8% 12%;
+    --popover-foreground: 36 25% 88%;
+    --primary: 36 30% 82%;
+    --primary-foreground: 30 10% 8%;
+    --secondary: 30 8% 16%;
+    --secondary-foreground: 36 25% 88%;
+    --muted: 30 6% 20%;
+    --muted-foreground: 30 10% 55%;
+    --accent: 36 30% 72%;
+    --accent-foreground: 30 10% 8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 30 8% 20%;
+    --input: 30 8% 20%;
+    --ring: 36 30% 82%;
+    --sidebar-background: 30 10% 8%;
+    --sidebar-foreground: 36 25% 88%;
+    --sidebar-primary: 36 30% 82%;
+    --sidebar-primary-foreground: 30 10% 8%;
+    --sidebar-accent: 30 8% 16%;
+    --sidebar-accent-foreground: 36 25% 88%;
+    --sidebar-border: 30 8% 20%;
+    --sidebar-ring: 36 30% 82%;
   }
 }
 
 @layer base {
+  html {
+    /* Fixed header + notch; pairs with scroll-mt on sections */
+    scroll-padding-top: max(4rem, calc(env(safe-area-inset-top, 0px) + 3rem));
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: max(5rem, calc(env(safe-area-inset-top, 0px) + 4rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Montserrat', sans-serif;
+    @apply bg-background text-foreground;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-family: 'Playfair Display', serif;
   }
 }
 
 @layer utilities {
-  .font-heading {
-    font-family: 'Oswald', sans-serif;
+  .font-display {
+    font-family: 'Playfair Display', serif;
   }
 
-  .font-script {
-    font-family: 'Pinyon Script', cursive;
+  .font-body {
+    font-family: 'Barlow', sans-serif;
   }
 
-  .font-sans {
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  /* Text stroke utility for outline text effects */
-  .text-stroke {
-    -webkit-text-stroke: 1px hsl(var(--foreground));
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Fade-in-up animation */
-  .fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Radial vignette for depth - dark edges for dark mode */
-  .bg-radial-vignette {
-    background: radial-gradient(
-      ellipse at center,
-      transparent 0%,
-      transparent 40%,
-      hsl(30 15% 3% / 0.6) 100%
-    );
-  }
-
-  /* Noise texture */
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Screen reader only */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-}
-
-/* Smooth animations */
-@layer components {
-  .animate-swash {
-    animation: swash-draw 1.5s ease-out forwards;
-  }
-}
-
-@keyframes swash-draw {
-  from {
-    stroke-dashoffset: 400;
-  }
-  to {
-    stroke-dashoffset: 0;
+  .text-balance {
+    text-wrap: balance;
   }
 }

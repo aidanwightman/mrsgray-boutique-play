@@ -14,14 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Oswald', 'sans-serif'],
-        script: ['Pinyon Script', 'cursive'],
-        sans: ['Montserrat', 'sans-serif'],
+        display: ['"Playfair Display"', 'serif'],
+        body: ['"Barlow"', 'sans-serif'],
       },
       colors: {
-        "background-dark": "hsl(var(--background-dark))",
-        "logo-stroke": "hsl(var(--logo-stroke))",
-        "logo-fill": "hsl(var(--logo-fill))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -80,21 +76,35 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        draw: {
-          "0%": { strokeDashoffset: "1000", opacity: "0.3" },
-          "10%": { opacity: "1" },
-          "100%": { strokeDashoffset: "0", opacity: "1" },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
-        fadeInText: {
-          "0%": { opacity: "0", transform: "translateY(5px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+        "fade-in-slow": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "slide-in-left": {
+          from: { opacity: "0", transform: "translateX(-30px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        "write-reveal": {
+          from: { clipPath: "inset(0 100% 0 0)" },
+          to: { clipPath: "inset(0 0% 0 0)" },
+        },
+        "fade-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0", pointerEvents: "none" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        draw: "draw 1.2s ease-out forwards",
-        "fade-text": "fadeInText 1s ease-out forwards",
+        "fade-in": "fade-in 0.8s ease-out forwards",
+        "fade-in-slow": "fade-in-slow 1.2s ease-out forwards",
+        "slide-in-left": "slide-in-left 0.6s ease-out forwards",
+        "write-reveal": "write-reveal 2s cubic-bezier(0.4, 0, 0.2, 1) forwards",
+        "fade-out": "fade-out 0.7s ease-out forwards",
       },
     },
   },
