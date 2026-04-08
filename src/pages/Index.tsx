@@ -9,33 +9,37 @@ const players = [
   {
     name: "Drew Spence",
     club: "Tottenham Hotspur",
-    bio: "An elite midfielder with clinical precision. London Derby Player of the Match and a cornerstone of the Spurs midfield.",
     image: "/players/drew-spence.jpg"
   },
   {
     name: "Emily Syme",
     club: "Bristol City",
-    bio: "Captain Syme leading with vision and tenacity. A technical playmaker whose influence defines the game.",
     image: "/players/emily-syme.jpg"
   },
   {
     name: "Tegan McGowan",
     club: "Charlton Athletic",
-    bio: "A dynamic force on the pitch, known for explosive pace and tactical intelligence. A rising star in women's football.",
     image: "/players/tegan-mcgowan.jpg"
   },
   {
     name: "Megan Walsh",
     club: "West Ham United",
-    bio: "Reliable, agile, and commanding. A top-tier goalkeeper whose presence provides ultimate security between the posts.",
     image: "/players/megan-walsh.jpg"
   },
   {
     name: "Clara Bellahall",
     club: "Cheltenham Town / Jamaica",
-    bio: "Representing with pride on the national and club stage. A versatile goalscorer with a clinical finishing touch.",
     image: "/players/clara-bellahall.jpg"
   }
+];
+
+const services = [
+  "Contract negotiations",
+  "Career development — On and off the pitch",
+  "Club transfers",
+  "Loans",
+  "Commercial partnerships",
+  "Off pitch marketing and campaigns",
 ];
 
 // --- Intro Animation ---
@@ -83,7 +87,7 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="font-body text-[10px] tracking-[0.35em] uppercase text-muted-foreground"
+              className="font-condensed text-[11px] tracking-[0.35em] uppercase text-muted-foreground"
             >
               Women's Football Agency
             </motion.p>
@@ -110,7 +114,7 @@ const Index = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 120 && rect.bottom >= 120;
         }
         return false;
       });
@@ -132,14 +136,14 @@ const Index = () => {
           <header
             className={`fixed top-0 left-0 right-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
               isScrolled
-                ? 'max-md:bg-[#1a1816]/96 md:bg-[#1a1816]/88 md:backdrop-blur-md border-b border-border/50 py-2 md:py-3 shadow-md'
+                ? 'bg-white/95 backdrop-blur-md border-b border-border py-2 md:py-3 shadow-sm'
                 : 'bg-transparent py-4 md:py-5'
             }`}
           >
             <div className="flex justify-between items-center max-w-[1440px] mx-auto w-full px-4 min-[480px]:px-6 md:px-12">
               <HeroNav activeSection={activeSection} />
               <div className="shrink-0 pl-2">
-                <p className="font-body text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.2em] md:tracking-[0.25em] text-muted-foreground uppercase">
+                <p className="font-condensed text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
                   Women's Football Agency
                 </p>
               </div>
@@ -147,24 +151,18 @@ const Index = () => {
           </header>
 
           <div className="relative min-h-screen w-full bg-background text-foreground overflow-x-hidden">
-            {/* Background Logo Watermark */}
-            <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-[0.02]">
-              <img src={mrsGrayScript} alt="" className="w-[110%] md:w-[70%] max-w-[1100px] select-none" />
-            </div>
 
             {/* Hidden SEO Content */}
             <div className="sr-only" aria-hidden="true">
               <h1>Mrs Gray - London Women's Football Agency</h1>
-              <p>
-                Mrs Gray is the premier women's football agency in London, offering elite player representation and football management.
-                As a leading London football agency, we specialize in women's football and Mrs Gray football services across all London boroughs.
-              </p>
+              <p>Mrs Gray is the premier women's football agency in London, offering elite player representation and football management.</p>
             </div>
 
             <main className="relative z-10">
-              {/* Hero Section */}
-              <section id="home" className="relative scroll-mt-20 md:scroll-mt-16 min-h-dvh flex flex-col px-4 min-[480px]:px-6 md:px-12 pt-4 md:pt-6 pb-0">
-                <div className="h-14 sm:h-16 md:h-16" />
+
+              {/* ── HERO SECTION ── */}
+              <section id="home" className="relative scroll-mt-24 min-h-dvh flex flex-col px-4 min-[480px]:px-6 md:px-12 pt-4 md:pt-6 pb-0 bg-background">
+                <div className="h-14 sm:h-16 md:h-20" />
 
                 <div className="flex-1 flex flex-col justify-between animate-fade-in">
                   {/* Mrs Gray Script Logo */}
@@ -172,27 +170,23 @@ const Index = () => {
                     <img
                       src={mrsGrayScript}
                       alt="Mrs Gray"
-                      className="w-full max-w-3xl md:max-w-5xl lg:max-w-6xl max-h-[25vh] md:max-h-[28vh] object-contain opacity-80 select-none pointer-events-none"
+                      className="w-full max-w-3xl md:max-w-5xl lg:max-w-6xl max-h-[28vh] md:max-h-[32vh] object-contain select-none pointer-events-none opacity-90"
                     />
                   </div>
 
-                  {/* Hero Text */}
-                  <div className="flex flex-col gap-3 md:gap-4 pb-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 px-2 min-[480px]:px-4 md:px-8">
-                      <h1 className="font-display text-2xl min-[400px]:text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl italic leading-[1.12] text-foreground/90">
-                        Elevating women's football,
-                      </h1>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 px-2 min-[480px]:px-4 md:px-8">
-                      <p className="font-display text-2xl min-[400px]:text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl italic leading-[1.12] text-primary/80">
-                        one player at a time
-                      </p>
-                    </div>
+                  {/* Agency description - below logo */}
+                  <div className="flex flex-col gap-6 md:gap-8 py-8 md:py-12 px-2 min-[480px]:px-4 md:px-8 max-w-3xl">
+                    <p className="font-condensed text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl leading-snug text-foreground/85 font-light">
+                      We are a boutique women's football agency that does things differently. With a clear, considered approach, we support athletes beyond representation by guiding their development, protecting their journey, and helping them grow with confidence.
+                    </p>
+                    <p className="font-condensed text-base sm:text-lg md:text-xl tracking-[0.04em] text-muted-foreground font-light">
+                      Long term growth over quick wins.
+                    </p>
                   </div>
                 </div>
 
-                {/* Bottom bar */}
-                <div className="flex items-end justify-between px-2 min-[480px]:px-4 md:px-8 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] sm:pb-6 md:pb-6 animate-fade-in" style={{ animationDelay: "0.6s" }}>
+                {/* Bottom bar — social links */}
+                <div className="flex items-end justify-between px-2 min-[480px]:px-4 md:px-8 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] sm:pb-6 animate-fade-in border-t border-border/40" style={{ animationDelay: "0.6s" }}>
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-8">
                     {[
                       { label: "Instagram", href: "https://www.instagram.com/mrsgrayagency/" },
@@ -204,7 +198,7 @@ const Index = () => {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-body text-[10px] md:text-xs tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase"
+                        className="font-condensed text-[10px] md:text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase"
                       >
                         {link.label}
                       </a>
@@ -213,33 +207,30 @@ const Index = () => {
                 </div>
               </section>
 
-              {/* Players Section */}
-              <section id="players" className="scroll-mt-16 md:scroll-mt-20 py-12 sm:py-16 md:py-24 px-4 min-[480px]:px-6 md:px-24 bg-secondary/30 relative">
+              {/* ── PLAYERS SECTION ── */}
+              <section id="players" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-secondary/40 border-t border-border/50">
                 <div className="max-w-7xl mx-auto space-y-12 md:space-y-16">
                   <div className="space-y-4">
-                    <h2 className="font-display text-3xl md:text-4xl italic text-primary">Our Players</h2>
-                    <div className="h-px w-24 bg-primary/30" />
-                    <p className="md:hidden font-body text-xs tracking-[0.12em] text-muted-foreground uppercase">
-                      Tap a player to read their bio
-                    </p>
+                    <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Our Players</h2>
+                    <div className="h-px w-24 bg-foreground/20" />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12 px-2 min-[480px]:px-4 md:px-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 px-2 min-[480px]:px-4 md:px-0">
                     {players.map((player, index) => (
                       <div key={player.name} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <PlayerCard {...player} />
+                        <PlayerCard name={player.name} club={player.club} image={player.image} />
                       </div>
                     ))}
                   </div>
                 </div>
               </section>
 
-              {/* About Section */}
-              <section id="about" className="scroll-mt-16 md:scroll-mt-20 py-12 sm:py-16 md:py-24 px-4 min-[480px]:px-6 md:px-24">
+              {/* ── ABOUT SECTION ── */}
+              <section id="about" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-background border-t border-border/50">
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <h2 className="font-display text-3xl md:text-4xl italic text-primary">Who We Are</h2>
-                      <div className="h-px w-24 bg-primary/30" />
+                      <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Who We Are</h2>
+                      <div className="h-px w-24 bg-foreground/20" />
                     </div>
                     <div className="font-body text-base md:text-lg leading-relaxed text-muted-foreground space-y-6">
                       <p>
@@ -255,17 +246,14 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <div className="bg-secondary/50 p-8 md:p-12 space-y-8 border border-border/50">
-                    <h3 className="font-display text-xl md:text-2xl italic">Our Mission</h3>
-                    <ul className="space-y-6 md:space-y-8">
-                      {[
-                        { title: "Career-first representation", desc: "Contract negotiation, club placement and long-term planning." },
-                        { title: "Brand & creative development", desc: "Strategic partnerships, creative direction, and media strategy." },
-                        { title: "Whole-person support", desc: "Wellbeing, lifestyle guidance and off-pitch opportunities." }
-                      ].map((item, i) => (
-                        <li key={i} className="space-y-2">
-                          <h4 className="font-body text-xs md:text-sm tracking-[0.2em] uppercase text-primary/80">{item.title}</h4>
-                          <p className="font-body text-xs md:text-sm text-muted-foreground">{item.desc}</p>
+                  {/* Services Box */}
+                  <div className="bg-secondary/50 p-8 md:p-10 space-y-6 border border-border/60">
+                    <h3 className="font-condensed text-2xl md:text-3xl font-semibold tracking-wide uppercase">Services</h3>
+                    <ul className="space-y-3">
+                      {services.map((service, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full bg-foreground/40" />
+                          <span className="font-condensed text-sm md:text-base tracking-wide text-muted-foreground">{service}</span>
                         </li>
                       ))}
                     </ul>
@@ -273,26 +261,21 @@ const Index = () => {
                 </div>
 
                 {/* Founder Section */}
-                <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-24 grid md:grid-cols-2 gap-10 sm:gap-12 md:gap-16 items-center px-2 min-[480px]:px-4 md:px-0">
-                  <div className="aspect-[4/5] max-md:max-h-[min(85vh,520px)] md:max-h-none mx-auto w-full bg-muted relative overflow-hidden contrast-[1.02] group cursor-default">
+                <div className="max-w-5xl mx-auto mt-16 md:mt-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+                  {/* Photo — smaller */}
+                  <div className="mx-auto w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] bg-muted relative overflow-hidden group cursor-default border border-border/40">
                     <img
                       src="/michaela.jpg"
                       alt="Michaela Gooden"
-                      className="w-full h-full object-cover object-top md:object-center transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-110"
+                      className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/40 to-transparent flex flex-col justify-end p-6 transition-opacity duration-500 pointer-events-none opacity-0 group-hover:opacity-100">
-                      <div className="space-y-1 transition-transform duration-500 translate-y-4 group-hover:translate-y-0">
-                        <h3 className="font-display text-2xl italic text-primary">Michaela Gooden</h3>
-                        <p className="font-body text-xs tracking-[0.2em] uppercase text-foreground/60">Mrs Gray</p>
-                      </div>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent pointer-events-none" />
                   </div>
-                  <div className="space-y-6">
-                    <h3 className="font-display text-2xl md:text-3xl italic">Michaela Gooden</h3>
-                    <p className="font-body text-[10px] md:text-xs tracking-[0.2em] uppercase text-foreground/60 mb-8">Lead Intermediary & Founder</p>
+                  <div className="space-y-5">
+                    <h3 className="font-condensed text-3xl md:text-4xl font-semibold tracking-wide uppercase">Michaela Gooden</h3>
+                    <p className="font-condensed text-xs md:text-sm tracking-[0.25em] uppercase text-muted-foreground">Lead Intermediary & Founder</p>
                     <div className="space-y-4 font-body text-base md:text-lg leading-relaxed text-muted-foreground">
                       <p>
                         Michaela is a former professional footballer who transitioned to representation after a career
@@ -307,24 +290,24 @@ const Index = () => {
                 </div>
               </section>
 
-              {/* Contact Section */}
-              <section id="contact" className="scroll-mt-16 md:scroll-mt-20 py-12 sm:py-16 md:py-24 px-4 min-[480px]:px-6 md:px-24 bg-card">
-                <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12 px-2 min-[480px]:px-4 md:px-0">
+              {/* ── CONTACT SECTION ── dark for contrast */}
+              <section id="contact" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-foreground text-background border-t border-border/50">
+                <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12">
                   <div className="space-y-4">
-                    <h2 className="font-display text-3xl md:text-4xl italic text-primary">Inquire</h2>
-                    <div className="h-px w-24 bg-primary/30 mx-auto" />
+                    <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide uppercase text-background">Inquire</h2>
+                    <div className="h-px w-24 bg-background/30 mx-auto" />
                   </div>
-                  <p className="font-body text-lg sm:text-xl md:text-3xl text-foreground/80 leading-relaxed max-w-3xl mx-auto text-pretty px-1">
+                  <p className="font-body text-lg sm:text-xl md:text-2xl text-background/75 leading-relaxed max-w-2xl mx-auto">
                     For representation or partnership inquiries, please reach out to our team.
                   </p>
                   <a
                     href="mailto:info@mrsgray.agency"
-                    className="inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-base sm:text-lg md:text-2xl font-display italic hover:text-primary transition-colors max-w-full px-2 break-words [overflow-wrap:anywhere] touch-manipulation"
+                    className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-base sm:text-lg md:text-xl font-condensed tracking-wider hover:opacity-70 transition-opacity text-background"
                   >
-                    <Mail className="w-5 h-5 md:w-6 md:h-6 shrink-0" />
-                    <span className="text-center">info@mrsgray.agency</span>
+                    <Mail className="w-5 h-5 shrink-0" />
+                    <span>info@mrsgray.agency</span>
                   </a>
-                  <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-8 md:gap-12 pt-6 sm:pt-8 md:pt-12">
+                  <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 pt-6 md:pt-10">
                     {[
                       { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/mrsgrayagency/" },
                       { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/mrs-gray-sports-agency/" },
@@ -335,10 +318,10 @@ const Index = () => {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-col items-center gap-2 group min-w-[4.5rem] min-h-[48px] justify-center touch-manipulation"
+                        className="flex flex-col items-center gap-2 group min-w-[4.5rem] touch-manipulation"
                       >
-                        <social.icon className="w-5 h-5 md:w-5 md:h-5 group-hover:text-primary transition-colors" />
-                        <span className="text-[10px] md:text-[11px] tracking-[0.18em] md:tracking-[0.2em] uppercase text-muted-foreground group-hover:text-foreground">{social.label}</span>
+                        <social.icon className="w-5 h-5 text-background/70 group-hover:text-background transition-colors" />
+                        <span className="font-condensed text-[10px] tracking-[0.2em] uppercase text-background/60 group-hover:text-background/90">{social.label}</span>
                       </a>
                     ))}
                   </div>
@@ -346,8 +329,8 @@ const Index = () => {
               </section>
             </main>
 
-            <footer className="py-8 md:py-12 px-4 md:px-6 pb-[max(2rem,env(safe-area-inset-bottom,0px))] border-t border-border/50 text-center">
-              <p className="font-body text-[10px] md:text-xs tracking-[0.2em] text-muted-foreground uppercase">
+            <footer className="py-8 px-4 border-t border-border/50 text-center bg-background">
+              <p className="font-condensed text-[10px] md:text-xs tracking-[0.25em] text-muted-foreground uppercase">
                 © 2026 Mrs Gray Agency. All rights reserved.
               </p>
             </footer>

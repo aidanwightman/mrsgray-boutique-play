@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],
         body: ['"Barlow"', 'sans-serif'],
+        condensed: ['"Barlow Condensed"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
