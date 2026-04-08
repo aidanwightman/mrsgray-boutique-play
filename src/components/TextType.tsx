@@ -52,6 +52,7 @@ const TextType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
+  const [typingDone, setTypingDone] = useState(false);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLElement>(null);
 
@@ -118,7 +119,10 @@ const TextType = ({
             setCurrentCharIndex(prev => prev + 1);
           }, variableSpeed ? getRandomSpeed() : typingSpeed);
         } else if (textArray.length >= 1) {
-          if (!loop && currentTextIndex === textArray.length - 1) return;
+          if (!loop && currentTextIndex === textArray.length - 1) {
+            setTypingDone(true);
+            return;
+          }
           timeout = setTimeout(() => { setIsDeleting(true); }, pauseDuration);
         }
       }
@@ -143,7 +147,7 @@ const TextType = ({
     <span className="text-type__content" style={{ color: getCurrentTextColor() || 'inherit' }}>
       {displayedText}
     </span>,
-    showCursor && (
+    showCursor && !typingDone && (
       <span
         ref={cursorRef}
         className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? 'text-type__cursor--hidden' : ''}`}
