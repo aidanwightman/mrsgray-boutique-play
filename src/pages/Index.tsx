@@ -4,6 +4,7 @@ import HeroNav from "@/components/HeroNav";
 import PlayerCard from "@/components/PlayerCard";
 import { Mail, Instagram, Linkedin, Twitter } from "lucide-react";
 import mrsGrayScript from "@/assets/script-font-bg.png";
+import GradualBlur from "@/components/GradualBlur";
 
 const players = [
   {
@@ -185,6 +186,9 @@ const Index = () => {
                   </div>
                 </div>
 
+                {/* Gradual blur at bottom of hero */}
+                <GradualBlur position="bottom" height="8rem" strength={3} divCount={8} curve="ease-out" />
+
                 {/* Bottom bar — social links */}
                 <div className="flex items-end justify-between px-2 min-[480px]:px-4 md:px-8 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] sm:pb-6 animate-fade-in border-t border-border/40" style={{ animationDelay: "0.6s" }}>
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-8">
@@ -208,7 +212,8 @@ const Index = () => {
               </section>
 
               {/* ── PLAYERS SECTION ── */}
-              <section id="players" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-secondary/40 border-t border-border/50">
+              <section id="players" className="relative scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-secondary/40 border-t border-white/10">
+                <GradualBlur position="top" height="5rem" strength={2} divCount={6} curve="ease-out" />
                 <div className="max-w-7xl mx-auto space-y-12 md:space-y-16">
                   <div className="space-y-4">
                     <h2 className="font-condensed text-4xl md:text-5xl font-semibold tracking-wide text-foreground uppercase">Our Players</h2>
@@ -225,7 +230,8 @@ const Index = () => {
               </section>
 
               {/* ── ABOUT SECTION — white splash ── */}
-              <section id="about" className="scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-white text-[#1a1816]">
+              <section id="about" className="relative scroll-mt-24 py-16 sm:py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 bg-white text-[#1a1816]">
+                <GradualBlur position="top" height="4rem" strength={1.5} divCount={5} curve="ease-out" />
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                   <div className="space-y-8">
                     <div className="space-y-4">
