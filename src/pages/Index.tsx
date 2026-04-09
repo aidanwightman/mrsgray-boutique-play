@@ -37,20 +37,20 @@ const players = [
 
 // --- Intro Animation ---
 const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
+  const [showMG, setShowMG]     = useState(false);
   const [showLogo, setShowLogo] = useState(false);
   const [showText, setShowText] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible]   = useState(true);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setShowLogo(true), 200);
-    const t2 = setTimeout(() => setShowText(true), 1200);
-    // Begin fading the overlay out at 2400ms
-    const t3 = setTimeout(() => setVisible(false), 2400);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    const t1 = setTimeout(() => setShowMG(true),   150);   // MG monogram first
+    const t2 = setTimeout(() => setShowLogo(true), 700);   // script fades in over MG
+    const t3 = setTimeout(() => setShowText(true), 1500);  // tagline below
+    const t4 = setTimeout(() => setVisible(false), 2800);  // begin exit
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
 
   return (
-    // onExitComplete fires after the fade-out animation fully finishes
     <AnimatePresence onExitComplete={() => {
       sessionStorage.setItem("mrsgray-intro-shown", "true");
       onComplete();
@@ -64,28 +64,52 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
           className="fixed inset-0 z-[100] flex items-center justify-center"
           style={{ background: 'hsl(var(--background))' }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={showLogo ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col items-center gap-6"
-          >
-            <img
-              src={mrsGrayScript}
-              alt="Mrs Gray"
-              className="w-[280px] md:w-[420px] select-none pointer-events-none"
-            />
+          <div className="relative flex flex-col items-center">
+
+            {/* Composited logo — MG behind, script on top */}
+            <div className="relative flex items-center justify-center">
+
+              {/* MG monogram — fades in first, stays slightly behind */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={showMG ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.9, ease: "easeOut" }}
+                className="absolute select-none pointer-events-none font-condensed font-black tracking-tight leading-none"
+                style={{
+                  fontSize: 'clamp(9rem, 22vw, 18rem)',
+                  color: 'rgba(196,164,112,0.22)',
+                  letterSpacing: '-0.02em',
+                }}
+                aria-hidden="true"
+              >
+                MG
+              </motion.div>
+
+              {/* mrs gray script — fades in on top */}
+              <motion.img
+                src={mrsGrayScript}
+                alt="Mrs Gray"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={showLogo ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="relative select-none pointer-events-none"
+                style={{ width: 'clamp(220px, 38vw, 400px)', height: 'auto' }}
+              />
+            </div>
+
+            {/* Tagline */}
             {showText && (
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="font-condensed text-[11px] tracking-[0.35em] uppercase text-muted-foreground"
+                transition={{ duration: 0.6 }}
+                className="font-condensed text-[11px] tracking-[0.38em] uppercase mt-6"
+                style={{ color: 'rgba(196,164,112,0.6)' }}
               >
                 Women's Football Agency
               </motion.p>
             )}
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
