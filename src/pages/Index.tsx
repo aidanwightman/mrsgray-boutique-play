@@ -411,7 +411,7 @@ const Index = () => {
               </section>
 
               {/* ── MARQUEE STRIP — equal space above and below ── */}
-              <div className="py-14 md:py-20" style={{ background: '#050402' }}>
+              <div className="py-8 md:py-12" style={{ background: '#050402' }}>
                 <div className="w-full h-px" style={{ background: 'linear-gradient(to right, rgba(196,164,112,0.85) 0%, rgba(196,164,112,0.35) 50%, rgba(196,164,112,0.85) 100%)' }} />
                 <MarqueeStrip />
                 <div className="w-full h-px" style={{ background: 'linear-gradient(to right, rgba(196,164,112,0.85) 0%, rgba(196,164,112,0.35) 50%, rgba(196,164,112,0.85) 100%)' }} />
