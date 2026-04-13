@@ -411,14 +411,14 @@ const Index = () => {
               </section>
 
               {/* ── MARQUEE STRIP — equal space above and below ── */}
-              <div className="py-8 md:py-12" style={{ background: '#050402' }}>
+              <div className="py-5 md:py-7" style={{ background: '#050402' }}>
                 <div className="w-full h-px" style={{ background: 'linear-gradient(to right, rgba(196,164,112,0.85) 0%, rgba(196,164,112,0.35) 50%, rgba(196,164,112,0.85) 100%)' }} />
                 <MarqueeStrip />
                 <div className="w-full h-px" style={{ background: 'linear-gradient(to right, rgba(196,164,112,0.85) 0%, rgba(196,164,112,0.35) 50%, rgba(196,164,112,0.85) 100%)' }} />
               </div>
 
               {/* ── PLAYERS SECTION ── */}
-              <section id="players" className="relative scroll-mt-24 pt-14 sm:pt-16 md:pt-20 pb-20 sm:pb-24 md:pb-32 bg-[#050402] border-b border-white/[0.06] overflow-hidden">
+              <section id="players" className="relative scroll-mt-24 pt-10 sm:pt-12 md:pt-14 pb-14 sm:pb-16 md:pb-20 bg-[#050402] border-b border-white/[0.06] overflow-hidden">
 
                 {/* Atmospheric glow */}
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0"
@@ -441,7 +441,7 @@ const Index = () => {
             </main>
 
             {/* ── AGENCY STATEMENT ── */}
-            <section className="relative overflow-hidden px-4 min-[480px]:px-6 md:px-24 py-24 md:py-32"
+            <section className="relative overflow-hidden px-4 min-[480px]:px-6 md:px-24 py-14 md:py-20"
               style={{ background: '#050402', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               <div aria-hidden="true" className="pointer-events-none absolute inset-0"
                 style={{ background: 'radial-gradient(ellipse 60% 60% at 30% 50%, rgba(196,164,112,0.07) 0%, transparent 65%)' }} />
@@ -475,7 +475,7 @@ const Index = () => {
 
             {/* ── INQUIRIES ── */}
             <section className="relative overflow-hidden flex flex-col items-center justify-center text-center"
-              style={{ background: '#0a0805', borderTop: '1px solid rgba(255,255,255,0.06)', minHeight: '40vh', padding: '8vh 1rem' }}>
+              style={{ background: '#0a0805', borderTop: '1px solid rgba(255,255,255,0.06)', minHeight: '30vh', padding: '5vh 1rem' }}>
               <div aria-hidden="true" className="pointer-events-none absolute inset-0"
                 style={{ background: 'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(196,164,112,0.09) 0%, transparent 70%)' }} />
               <FadeUp>

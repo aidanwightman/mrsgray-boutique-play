@@ -82,7 +82,7 @@ const AboutPage = () => {
         {/* ── HERO BANNER ── */}
         <div
           className="relative flex items-center justify-center overflow-hidden"
-          style={{ paddingTop: "16vh", paddingBottom: "12vh", minHeight: "52vh" }}
+          style={{ paddingTop: "10vh", paddingBottom: "8vh", minHeight: "40vh" }}
         >
           {/* Same warm glow as homepage */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
@@ -107,7 +107,7 @@ const AboutPage = () => {
         </div>
 
         {/* ── WHO WE ARE + SERVICES ── */}
-        <section id="about" className="relative scroll-mt-24 py-20 md:py-28 px-4 min-[480px]:px-6 md:px-24 overflow-hidden"
+        <section id="about" className="relative scroll-mt-24 py-14 md:py-20 px-4 min-[480px]:px-6 md:px-24 overflow-hidden"
           style={{ background: "#0d0b07" }}>
 
           {/* Glow — left side for the text column */}
@@ -162,7 +162,7 @@ const AboutPage = () => {
           </div>
 
           {/* ── DIVIDER ── */}
-          <div className="max-w-5xl mx-auto" style={{ marginTop: "7rem", marginBottom: "7rem" }}>
+          <div className="max-w-5xl mx-auto" style={{ marginTop: "4rem", marginBottom: "4rem" }}>
             <div className="flex items-center gap-6">
               <div className="flex-1 h-px" style={{ background: "linear-gradient(to right, transparent, rgba(196,164,112,0.5))" }} />
               <span className="font-condensed text-xs tracking-[0.35em] uppercase shrink-0" style={{ color: "rgba(196,164,112,0.5)" }}>Mrs Gray</span>
@@ -178,8 +178,12 @@ const AboutPage = () => {
                 style={{ background: "radial-gradient(ellipse 60% 60% at 25% 50%, rgba(196,164,112,0.07) 0%, transparent 70%)" }} />
 
               {/* Photo — full width of column, no fixed max-width so it fills */}
-              <div className="relative w-full aspect-[3/4] overflow-hidden group cursor-default"
-                style={{ border: "1px solid rgba(255,255,255,0.1)", background: "#1a1510" }}>
+              <div className="relative w-[85%] aspect-square overflow-hidden group cursor-default"
+                style={{
+                  background: "#1a1510",
+                  maskImage: "radial-gradient(ellipse 88% 88% at 50% 50%, black 55%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(ellipse 88% 88% at 50% 50%, black 55%, transparent 100%)",
+                }}>
                 <img
                   src="/michaela-hires-1.jpg"
                   alt="Michaela Gooden"
@@ -187,12 +191,10 @@ const AboutPage = () => {
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 pointer-events-none"
-                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }} />
               </div>
 
               {/* Text — starts at top, runs full length of photo */}
-              <div className="relative space-y-7">
+              <div className="relative space-y-6">
                 <div className="h-px w-12" style={{ background: "linear-gradient(to right, #c4a470, transparent)" }} />
 
                 <div className="space-y-2">
@@ -227,6 +229,11 @@ const AboutPage = () => {
                     agency works closely with clients to build their personal brand, secure commercial partnerships,
                     and create opportunities that extend well beyond the final whistle.
                   </p>
+                  <p>
+                    Michaela brings a level of understanding to her work that can only come from lived experience —
+                    knowing what it takes mentally, physically, and professionally to sustain a career at the
+                    highest level of women's football.
+                  </p>
                 </div>
 
                 <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.08)" }} />
@@ -249,7 +256,7 @@ const AboutPage = () => {
         </section>
 
         {/* ── CONTACT ── */}
-        <section id="contact" className="relative scroll-mt-24 py-20 sm:py-24 md:py-32 px-4 min-[480px]:px-6 md:px-24 overflow-hidden"
+        <section id="contact" className="relative scroll-mt-24 py-14 sm:py-16 md:py-20 px-4 min-[480px]:px-6 md:px-24 overflow-hidden"
           style={{ background: "#0a0805", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
 
           {/* Centred glow */}
