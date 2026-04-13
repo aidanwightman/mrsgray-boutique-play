@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import HeroNav from "@/components/HeroNav";
 import PlayerCard from "@/components/PlayerCard";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
-import mrsGrayScript from "@/assets/script-font-bg.png";
+import mrsGrayScript from "@/assets/mrs-gray-script-black.png";
 import GradualBlur from "@/components/GradualBlur";
 import TextType from "@/components/TextType";
 
@@ -93,7 +93,7 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
                 animate={showLogo ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="relative select-none pointer-events-none"
-                style={{ width: 'clamp(220px, 38vw, 400px)', height: 'auto' }}
+                style={{ width: 'clamp(220px, 38vw, 400px)', height: 'auto', filter: 'invert(1)' }}
               />
             </div>
 
@@ -396,7 +396,7 @@ const Index = () => {
                       src={mrsGrayScript}
                       alt="Mrs Gray"
                       className="relative select-none pointer-events-none opacity-90"
-                      style={{ height: '30vh', width: 'auto', maxWidth: '95%' }}
+                      style={{ height: '30vh', width: 'auto', maxWidth: '95%', filter: 'invert(1)' }}
                     />
                   </div>
 
