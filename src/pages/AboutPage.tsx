@@ -127,7 +127,7 @@ const AboutPage = () => {
                 <div className="font-body text-base md:text-lg leading-relaxed space-y-6" style={{ color: "rgba(255,255,255,0.55)" }}>
                   <p>
                     Mrs Gray is a female-focused, boutique football agency redefining the landscape of women's football.
-                    Founded by former professional Michaela Gooden, the agency blends real experience with purpose,
+                    Founded by former professional footballer Michaela Gooden, the agency blends real experience with purpose,
                     representing a carefully selected group of athletes.
                   </p>
                   <p>
@@ -181,9 +181,9 @@ const AboutPage = () => {
               <div className="relative w-full aspect-[3/4] overflow-hidden group cursor-default"
                 style={{ border: "1px solid rgba(255,255,255,0.1)", background: "#1a1510" }}>
                 <img
-                  src="/michaela.jpg"
+                  src="/michaela-hires-1.jpg"
                   alt="Michaela Gooden"
-                  className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                 />
@@ -205,9 +205,9 @@ const AboutPage = () => {
                   </p>
                 </div>
 
-                <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.08)" }} />
+                <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.15)" }} />
 
-                <div className="space-y-5 font-body text-base md:text-lg leading-relaxed"
+                <div className="space-y-6 font-body text-lg md:text-xl leading-relaxed"
                   style={{ color: "rgba(255,255,255,0.7)" }}>
                   <p>
                     Michaela is a former professional footballer who transitioned to representation after a career
@@ -259,17 +259,17 @@ const AboutPage = () => {
           <div className="relative max-w-5xl mx-auto text-center space-y-8 sm:space-y-12">
             <FadeUp>
               <div className="space-y-4">
-                <h2 className="font-condensed text-5xl md:text-7xl font-bold tracking-tight uppercase text-foreground leading-none">Inquire</h2>
+                <h2 className="font-condensed text-5xl md:text-7xl font-bold tracking-tight uppercase text-foreground leading-none">Enquire</h2>
                 <div className="h-px w-24 mx-auto"
                   style={{ background: "linear-gradient(to right, rgba(196,164,112,0.85) 0%, rgba(196,164,112,0.35) 50%, rgba(196,164,112,0.85) 100%)" }} />
               </div>
             </FadeUp>
             <p className="font-body text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto"
               style={{ color: "rgba(255,255,255,0.5)" }}>
-              For representation or partnership inquiries, please reach out to our team.
+              For representation or partnership enquiries, please reach out to our team.
             </p>
             <a
-              href="/inquire"
+              href="/enquire"
               className="inline-flex items-center gap-3 font-condensed text-sm tracking-[0.22em] uppercase transition-all duration-300 px-12 py-4 hover:gap-4"
               style={{
                 background: "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))",
@@ -277,7 +277,7 @@ const AboutPage = () => {
                 color: "#c4a470",
               }}
             >
-              Start an Inquiry
+              Start an Enquiry
             </a>
             <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 pt-6 md:pt-10">
               {[

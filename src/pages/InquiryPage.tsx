@@ -5,14 +5,14 @@ import { Instagram, Linkedin, Twitter } from "lucide-react";
 import HeroNav from "@/components/HeroNav";
 import mrsGrayScript from "@/assets/script-font-bg.png";
 
-const inquiryTypes = [
+const enquiryTypes = [
   "Player representation",
   "Commercial partnership",
   "Media & press",
-  "General inquiry",
+  "General enquiry",
 ];
 
-const InquiryPage = () => {
+const EnquiryPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
@@ -36,7 +36,7 @@ const InquiryPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Opens mail client with pre-filled content as fallback
-    const subject = encodeURIComponent(`${form.type || "Inquiry"} — ${form.name}`);
+    const subject = encodeURIComponent(`${form.type || "Enquiry"} — ${form.name}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\nType: ${form.type}\n\n${form.message}`
     );
@@ -111,11 +111,11 @@ const InquiryPage = () => {
               Mrs Gray Agency
             </p>
             <h1 className="font-condensed text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight uppercase leading-none text-foreground">
-              Inquire
+              Enquire
             </h1>
             <div className="h-px w-20" style={{ background: "linear-gradient(to right, #c4a470, transparent)" }} />
             <p className="font-body text-base md:text-lg leading-relaxed pt-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-              For representation or partnership inquiries, fill in the form below and we'll be in touch.
+              For representation or partnership enquiries, fill in the form below and we'll be in touch.
             </p>
           </motion.div>
 
@@ -131,7 +131,7 @@ const InquiryPage = () => {
                 <CheckCircle className="w-12 h-12 mx-auto" style={{ color: "#c4a470" }} />
                 <h2 className="font-condensed text-3xl md:text-4xl uppercase tracking-tight text-foreground">Thank you</h2>
                 <p className="font-body text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  Your inquiry has been sent. We'll be in touch shortly.
+                  Your enquiry has been sent. We'll be in touch shortly.
                 </p>
                 <a href="/about"
                   className="inline-block mt-4 font-condensed text-xs tracking-[0.25em] uppercase hover:opacity-60 transition-opacity"
@@ -198,7 +198,7 @@ const InquiryPage = () => {
                   </div>
                   <div>
                     <label className={labelCls} style={{ color: "rgba(196,164,112,0.65)" }} htmlFor="type">
-                      Inquiry Type <span style={{ color: "#c4a470" }}>*</span>
+                      Enquiry Type <span style={{ color: "#c4a470" }}>*</span>
                     </label>
                     <select
                       id="type" name="type" required
@@ -209,7 +209,7 @@ const InquiryPage = () => {
                       onBlur={e => (e.target.style.borderColor = form.type ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)")}
                     >
                       <option value="" disabled style={{ background: "#1a1612" }}>Select…</option>
-                      {inquiryTypes.map(t => (
+                      {enquiryTypes.map(t => (
                         <option key={t} value={t} style={{ background: "#1a1612" }}>{t}</option>
                       ))}
                     </select>
@@ -224,7 +224,7 @@ const InquiryPage = () => {
                   <textarea
                     id="message" name="message" required rows={6}
                     value={form.message} onChange={handleChange}
-                    placeholder="Tell us about yourself or your inquiry…"
+                    placeholder="Tell us about yourself or your enquiry…"
                     className={`${inputCls} resize-none`}
                     style={{ ...inputBase, borderColor: form.message ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)" }}
                     onFocus={e => (e.target.style.borderColor = "rgba(196,164,112,0.5)")}
@@ -245,7 +245,7 @@ const InquiryPage = () => {
                     onMouseEnter={e => (e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.25), rgba(196,164,112,0.12))")}
                     onMouseLeave={e => (e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))")}
                   >
-                    Send Inquiry
+                    Send Enquiry
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
@@ -264,4 +264,4 @@ const InquiryPage = () => {
   );
 };
 
-export default InquiryPage;
+export default EnquiryPage;

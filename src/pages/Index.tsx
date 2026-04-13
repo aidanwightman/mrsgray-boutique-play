@@ -10,7 +10,7 @@ import TextType from "@/components/TextType";
 const players = [
   {
     name: "Drew Spence",
-    club: "Tottenham Hotspur",
+    club: "Tottenham Hotspur / Jamaica",
     image: "/players/drew-spence.jpg"
   },
   {
@@ -20,7 +20,7 @@ const players = [
   },
   {
     name: "Tegan McGowan",
-    club: "Charlton Athletic",
+    club: "Birmingham",
     image: "/players/tegan-mcgowan.jpg"
   },
   {
@@ -484,14 +484,14 @@ const Index = () => {
                     style={{ color: 'rgba(196,164,112,0.6)' }}>
                     Work with us
                   </p>
-                  <a href="/inquire"
+                  <a href="/enquire"
                     className="inline-flex items-center gap-3 font-condensed text-sm tracking-[0.22em] uppercase transition-all duration-300 px-12 py-4 hover:gap-5"
                     style={{
                       background: 'linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))',
                       border: '1px solid rgba(196,164,112,0.4)',
                       color: '#c4a470',
                     }}>
-                    Start an Inquiry
+                    Start an Enquiry
                   </a>
                 </div>
               </FadeUp>
