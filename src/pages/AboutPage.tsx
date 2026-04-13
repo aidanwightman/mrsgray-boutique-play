@@ -178,7 +178,7 @@ const AboutPage = () => {
                 style={{ background: "radial-gradient(ellipse 60% 60% at 25% 50%, rgba(196,164,112,0.07) 0%, transparent 70%)" }} />
 
               {/* Photo — full width of column, no fixed max-width so it fills */}
-              <div className="relative w-[90%] aspect-[4/5] overflow-hidden group cursor-default"
+              <div className="relative w-[90%] aspect-[4/5] overflow-hidden group cursor-default mx-auto mt-10"
                 style={{
                   background: "#1a1510",
                   border: "1px solid rgba(196,164,112,0.25)",
