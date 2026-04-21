@@ -135,7 +135,7 @@ const LINE_DELAYS = HERO_LINES.reduce<number[]>((acc, line, i) => {
   return [...acc, acc[i - 1] + HERO_LINES[i - 1].length * SPEED + PAUSE];
 }, []);
 
-const LINE_CLS = "font-condensed text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl leading-snug text-foreground/85 font-light";
+const LINE_CLS = "font-condensed text-2xl min-[400px]:text-3xl sm:text-4xl md:text-5xl leading-snug text-foreground/85 font-light";
 
 const HeroText = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -237,7 +237,7 @@ const MARQUEE_ITEMS = Array(10).fill(MARQUEE_PHRASE).join('');
 
 const MarqueeStrip = () => (
   <div
-    className="relative overflow-hidden py-4 bg-[#050402]"
+    className="relative overflow-hidden py-2 bg-[#050402]"
     aria-hidden="true"
   >
     <div
@@ -371,12 +371,15 @@ const Index = () => {
 
                 <div className="flex-1 flex flex-col justify-between animate-fade-in">
                   {/* Logo */}
-                  <div className="relative flex justify-center" style={{ paddingTop: '28vh', paddingBottom: '4vh' }}>
+                  <div className="relative flex justify-center" style={{ paddingTop: '20vh', paddingBottom: '4vh' }}>
 
-                  {/* Giant decorative background word — centred behind the logo */}
-                  <div
+                  {/* Giant decorative background word — fades in first */}
+                  <motion.div
                     aria-hidden="true"
                     className="pointer-events-none select-none absolute inset-0 flex items-center justify-center overflow-hidden"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1.8, ease: "easeOut", delay: skipIntro ? 0.3 : 0.1 }}
                   >
                     <span
                       className="font-condensed font-black uppercase leading-none text-white text-center w-full"
@@ -388,20 +391,32 @@ const Index = () => {
                     >
                       WOMEN'S FOOTBALL AGENCY
                     </span>
-                  </div>
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  </motion.div>
+
+                    {/* Gold glow — fades in with underlay */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 2.0, ease: "easeOut", delay: skipIntro ? 0.3 : 0.1 }}
+                    >
                       <div className="w-[85%] h-[85%] blur-3xl" style={{ background: 'radial-gradient(ellipse at center, rgba(196,164,112,0.22) 0%, rgba(180,140,80,0.08) 50%, transparent 75%)' }} />
-                    </div>
-                    <img
+                    </motion.div>
+
+                    {/* Logo — fades in after underlay */}
+                    <motion.img
                       src={mrsGrayScript}
                       alt="Mrs Gray"
-                      className="relative select-none pointer-events-none opacity-90"
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 0.9, scale: 1 }}
+                      transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: skipIntro ? 1.0 : 0.8 }}
+                      className="relative select-none pointer-events-none"
                       style={{ height: '30vh', width: 'auto', maxWidth: '95%', filter: 'invert(1)' }}
                     />
                   </div>
 
                   {/* Agency description — pinned to bottom of flex space */}
-                  <div className="flex flex-col max-w-4xl" style={{ paddingBottom: '18vh' }}>
+                  <div className="flex flex-col max-w-4xl" style={{ paddingBottom: '3vh', paddingTop: '1.5vh' }}>
                     <HeroText />
                   </div>
                 </div>
