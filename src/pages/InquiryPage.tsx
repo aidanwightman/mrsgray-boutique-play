@@ -40,10 +40,19 @@ const EnquiryPage = () => {
     setSending(true);
     setError("");
     try {
-      const res = await fetch("/api/contact", {
+      const data = new FormData();
+      data.append("name", form.name);
+      data.append("email", form.email);
+      data.append("phone", form.phone || "—");
+      data.append("type", form.type);
+      data.append("message", form.message);
+      data.append("_subject", `${form.type} — ${form.name}`);
+      data.append("_captcha", "false");
+      data.append("_template", "table");
+
+      const res = await fetch("https://formsubmit.co/info@mrsgray.agency", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: data,
       });
       if (!res.ok) throw new Error("Send failed");
       setSubmitted(true);
