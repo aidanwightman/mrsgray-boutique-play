@@ -105,21 +105,72 @@ const EnquiryPage = () => {
             {state.succeeded ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-center py-20 space-y-6"
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="py-24 space-y-8"
               >
-                <CheckCircle className="w-12 h-12 mx-auto" style={{ color: "#c4a470" }} />
-                <h2 className="font-condensed text-3xl md:text-4xl uppercase tracking-tight text-foreground">Thank you</h2>
-                <p className="font-body text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  Your enquiry has been sent. We'll be in touch shortly.
-                </p>
-                <a href="/about"
-                  className="inline-block mt-4 font-condensed text-xs tracking-[0.25em] uppercase hover:opacity-60 transition-opacity"
-                  style={{ color: "#c4a470" }}>
-                  ← Back to About
-                </a>
+                {/* Animated gold ring + check */}
+                <div className="flex justify-center">
+                  <div className="relative">
+                    {/* Pulsing glow */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      style={{ background: "rgba(196,164,112,0.15)", filter: "blur(16px)" }}
+                      animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0.2, 0.6] }}
+                      transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    {/* Gold ring */}
+                    <motion.div
+                      className="relative w-20 h-20 rounded-full flex items-center justify-center"
+                      style={{ border: "1px solid rgba(196,164,112,0.5)", background: "rgba(196,164,112,0.08)" }}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.35, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <CheckCircle className="w-8 h-8" style={{ color: "#c4a470" }} />
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Text */}
+                <motion.div
+                  className="space-y-3 text-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <p className="font-condensed text-xs tracking-[0.3em] uppercase" style={{ color: "rgba(196,164,112,0.65)" }}>
+                    Enquiry received
+                  </p>
+                  <h2 className="font-condensed text-4xl md:text-5xl uppercase tracking-tight font-bold text-foreground">
+                    Thank You
+                  </h2>
+                  <div className="h-px w-16 mx-auto" style={{ background: "linear-gradient(to right, transparent, #c4a470, transparent)" }} />
+                  <p className="font-body text-base md:text-lg leading-relaxed pt-2 max-w-sm mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    Your enquiry has been received. Someone from the Mrs Gray team will be in touch with you shortly.
+                  </p>
+                </motion.div>
+
+                {/* Back link */}
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.5 }}
+                >
+                  <a href="/"
+                    className="inline-block font-condensed text-xs tracking-[0.25em] uppercase hover:opacity-60 transition-opacity"
+                    style={{ color: "rgba(196,164,112,0.6)" }}>
+                    ← Back to home
+                  </a>
+                </motion.div>
               </motion.div>
             ) : (
               <motion.form
