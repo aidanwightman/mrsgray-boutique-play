@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle } from "lucide-react";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
@@ -12,18 +13,11 @@ const enquiryTypes = [
   "General enquiry",
 ];
 
+const FORMSPREE_ID = "YOUR_FORM_ID"; // ← swap in your Formspree form ID
+
 const EnquiryPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    type: "",
-    message: "",
-  });
+  const [state, handleSubmit] = useForm(FORMSPREE_ID);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -31,37 +25,6 @@ const EnquiryPage = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    setError("");
-    try {
-      const data = new FormData();
-      data.append("name", form.name);
-      data.append("email", form.email);
-      data.append("phone", form.phone || "—");
-      data.append("type", form.type);
-      data.append("message", form.message);
-      data.append("_subject", `${form.type} — ${form.name}`);
-      data.append("_captcha", "false");
-      data.append("_template", "table");
-
-      const res = await fetch("https://formsubmit.co/info@mrsgray.agency", {
-        method: "POST",
-        body: data,
-      });
-      if (!res.ok) throw new Error("Send failed");
-      setSubmitted(true);
-    } catch {
-      setError("Something went wrong — please try again or email us directly at info@mrsgray.agency");
-    } finally {
-      setSending(false);
-    }
-  };
 
   const inputBase = {
     background: "rgba(255,255,255,0.04)",
@@ -139,7 +102,7 @@ const EnquiryPage = () => {
           </motion.div>
 
           <AnimatePresence mode="wait">
-            {submitted ? (
+            {state.succeeded ? (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, y: 16 }}
@@ -175,13 +138,13 @@ const EnquiryPage = () => {
                     </label>
                     <input
                       id="name" name="name" type="text" required
-                      value={form.name} onChange={handleChange}
                       placeholder="Your name"
                       className={inputCls}
-                      style={{ ...inputBase, borderColor: form.name ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)" }}
+                      style={inputBase}
                       onFocus={e => (e.target.style.borderColor = "rgba(196,164,112,0.5)")}
-                      onBlur={e => (e.target.style.borderColor = form.name ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)")}
+                      onBlur={e => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
                     />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-sm mt-1" />
                   </div>
                   <div>
                     <label className={labelCls} style={{ color: "rgba(196,164,112,0.65)" }} htmlFor="email">
@@ -189,13 +152,13 @@ const EnquiryPage = () => {
                     </label>
                     <input
                       id="email" name="email" type="email" required
-                      value={form.email} onChange={handleChange}
                       placeholder="your@email.com"
                       className={inputCls}
-                      style={{ ...inputBase, borderColor: form.email ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)" }}
+                      style={inputBase}
                       onFocus={e => (e.target.style.borderColor = "rgba(196,164,112,0.5)")}
-                      onBlur={e => (e.target.style.borderColor = form.email ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)")}
+                      onBlur={e => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
                     />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-sm mt-1" />
                   </div>
                 </div>
 
@@ -207,7 +170,6 @@ const EnquiryPage = () => {
                     </label>
                     <input
                       id="phone" name="phone" type="tel"
-                      value={form.phone} onChange={handleChange}
                       placeholder="+44 7700 000000"
                       className={inputCls}
                       style={inputBase}
@@ -221,13 +183,12 @@ const EnquiryPage = () => {
                     </label>
                     <select
                       id="type" name="type" required
-                      value={form.type} onChange={handleChange}
                       className={inputCls}
-                      style={{ ...inputBase, borderColor: form.type ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)", appearance: "none" }}
+                      style={{ ...inputBase, appearance: "none" }}
                       onFocus={e => (e.target.style.borderColor = "rgba(196,164,112,0.5)")}
-                      onBlur={e => (e.target.style.borderColor = form.type ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)")}
+                      onBlur={e => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
                     >
-                      <option value="" disabled style={{ background: "#1a1612" }}>Select…</option>
+                      <option value="" disabled selected style={{ background: "#1a1612" }}>Select…</option>
                       {enquiryTypes.map(t => (
                         <option key={t} value={t} style={{ background: "#1a1612" }}>{t}</option>
                       ))}
@@ -242,38 +203,31 @@ const EnquiryPage = () => {
                   </label>
                   <textarea
                     id="message" name="message" required rows={6}
-                    value={form.message} onChange={handleChange}
                     placeholder="Tell us about yourself or your enquiry…"
                     className={`${inputCls} resize-none`}
-                    style={{ ...inputBase, borderColor: form.message ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)" }}
+                    style={inputBase}
                     onFocus={e => (e.target.style.borderColor = "rgba(196,164,112,0.5)")}
-                    onBlur={e => (e.target.style.borderColor = form.message ? "rgba(196,164,112,0.4)" : "rgba(255,255,255,0.1)")}
+                    onBlur={e => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
                   />
+                  <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-sm mt-1" />
                 </div>
-
-                {/* Error */}
-                {error && (
-                  <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,100,100,0.8)" }}>
-                    {error}
-                  </p>
-                )}
 
                 {/* Submit */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    disabled={sending}
+                    disabled={state.submitting}
                     className="inline-flex items-center gap-3 font-condensed text-sm tracking-[0.2em] uppercase transition-all duration-300 px-10 py-4 hover:gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       background: "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))",
                       border: "1px solid rgba(196,164,112,0.4)",
                       color: "#c4a470",
                     }}
-                    onMouseEnter={e => { if (!sending) e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.25), rgba(196,164,112,0.12))"; }}
+                    onMouseEnter={e => { if (!state.submitting) e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.25), rgba(196,164,112,0.12))"; }}
                     onMouseLeave={e => (e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))")}
                   >
-                    {sending ? "Sending…" : "Send Enquiry"}
-                    {!sending && <Send className="w-4 h-4" />}
+                    {state.submitting ? "Sending…" : "Send Enquiry"}
+                    {!state.submitting && <Send className="w-4 h-4" />}
                   </button>
                 </div>
               </motion.form>
