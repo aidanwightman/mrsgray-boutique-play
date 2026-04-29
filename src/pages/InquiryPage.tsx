@@ -15,6 +15,8 @@ const enquiryTypes = [
 const EnquiryPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -33,15 +35,23 @@ const EnquiryPage = () => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Opens mail client with pre-filled content as fallback
-    const subject = encodeURIComponent(`${form.type || "Enquiry"} — ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\nType: ${form.type}\n\n${form.message}`
-    );
-    window.location.href = `mailto:info@mrsgray.agency?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Send failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong — please try again or email us directly at info@mrsgray.agency");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputBase = {
@@ -232,21 +242,29 @@ const EnquiryPage = () => {
                   />
                 </div>
 
+                {/* Error */}
+                {error && (
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,100,100,0.8)" }}>
+                    {error}
+                  </p>
+                )}
+
                 {/* Submit */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-3 font-condensed text-sm tracking-[0.2em] uppercase transition-all duration-300 px-10 py-4 hover:gap-4"
+                    disabled={sending}
+                    className="inline-flex items-center gap-3 font-condensed text-sm tracking-[0.2em] uppercase transition-all duration-300 px-10 py-4 hover:gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       background: "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))",
                       border: "1px solid rgba(196,164,112,0.4)",
                       color: "#c4a470",
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.25), rgba(196,164,112,0.12))")}
+                    onMouseEnter={e => { if (!sending) e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.25), rgba(196,164,112,0.12))"; }}
                     onMouseLeave={e => (e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,164,112,0.15), rgba(196,164,112,0.08))")}
                   >
-                    Send Enquiry
-                    <Send className="w-4 h-4" />
+                    {sending ? "Sending…" : "Send Enquiry"}
+                    {!sending && <Send className="w-4 h-4" />}
                   </button>
                 </div>
               </motion.form>
